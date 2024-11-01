@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="/app.js" defer></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <title>Campi</title>
+</head>
+<body>
+
+    <main>
+
+        <general-chat></general-chat>
+        <section class="container-box">
+            
+            <div class="container-chat">
+                <div id="conversation" class="container-chat_conversation">
+                    <div id="ia" class="conversation-ia"> 
+
+                    </div>
+                    <div id="user" class="conversation-user">
+
+                    </div>
+                    
+
+                </div>
+
+                <div id="message" class="container-chat_message">
+
+                    <div class="messageToSend">
+                        <input type="text" class="input-text" name="nombre"id="messageInput" placeholder=" Escribe un mensaje">  
+                    </div>
+                    
+                    <div class="send-button">
+                        <button id="btnSendMessage"><box-icon name='send' ></box-icon></button>
+                    </div>
+        
+                </div>
+
+                
+            </div>
+
+        </section>
+
+    </main>
+    
+</body>
+</html>
