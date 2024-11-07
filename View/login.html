@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campi</title>
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Campi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <script type="module" src="/app/components/Main/main.js" defer></script>
 </head>
 <body>
+    <style>
+        html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background: #222D32;
+        font-family: 'Roboto', sans-serif;
+    }
+    </style>
+    
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-2"></div>
@@ -19,56 +33,54 @@
                 <div class="col-lg-12 login-title">
                     ¡Bienvenido a Campuslands!
                 </div>
-
+    
                 <div class="col-lg-12 login-form">
                     <div class="col-lg-12 login-form">
                         <form id="loginForm">
                             <div class="form-group">
-                                <label class="form-control-label">Nombre</label>
+                                <label class="form-control-label">Teléfono</label>
+                                <input type="number" id="telefono" class="form-control">
+                            </div>                            
+                            <div class="form-group">
+                                <label class="form-control-label">Nombre y Apellido</label>
                                 <input type="text" id="nombreUsuario" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Teléfono</label>
-                                <input type="password" id="contrasena" class="form-control">
+                                <label class="form-control-label">Ciudad</label>
+                                <select id="ciudad" class="form-control">
+                                    <option value="">Seleccione su ciudad</option>
+                                    <option value="Bucaramanga">Bucaramanga</option>
+                                    <!--<option value="Bogotá">Bogotá</option>-->
+                                </select>
                             </div>
-                            <div class="col-lg-12 loginbttm">
-                                <div class="col-lg-6 login-btm login-text">
-                                    <!-- Error Message -->
-                                </div>
-                                <div class="col-lg-6 login-btm login-button">
-                                    <button type="button" onclick="login()" class="btn btn-outline-primary">LOGIN</button>
-                                </div>
+                            <!-- Botón centrado -->
+                            <div class="form-group login-button-container">
+                                <button id="ingresarBtn"type="button" class="btn btn-outline-primary">Ingresar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-2"></div>
             </div>
+            <div class="col-lg-3 col-md-2"></div>
         </div>
-    </div>
+    </div>    
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script>
-        async function login() {
-            const nombreUsuario = document.getElementById('nombreUsuario').value;
-            const contrasena = document.getElementById('contrasena').value;
+        const input = document.querySelector("#telefono");
 
-            const response = await fetch('http://localhost:8080/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nombreUsuario, contrasena })
-            });
-
-            if (response.ok) {
-                const token = await response.text();
-                console.log('Login exitoso, token:', token);
-                // Aquí podrías guardar el token en el almacenamiento local o redirigir al usuario
-                // localStorage.setItem('token', token);
-            } else {
-                console.error('Error al iniciar sesión');
-            }
-        }
+        // Inicializa intl-tel-input en el campo de teléfono
+        const iti = window.intlTelInput(input, {
+            separateDialCode: true,
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                fetch("https://ipinfo.io?token=f8df01a611ed79")
+                    .then((resp) => resp.json())
+                    .then((data) => callback(data.country))
+                    .catch(() => callback("us"));
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        });
     </script>
 </body>
 </html>

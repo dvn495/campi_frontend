@@ -1,137 +1,184 @@
-
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background: #222D32;
-    font-family: 'Roboto', sans-serif;
-}
-
 .container {
-    width: 100%; /* Asegura que ocupe el 100% del ancho */
-    height: 100%; /* Asegura que ocupe el 100% de la altura */
-    background: #222D32;
-}
+    width: 100%; 
+    height: 100vh;
+}  
+
 .login-box {
     margin-top: 75px;
+    padding: 20px;
     height: auto;
     background: #1A2226;
     text-align: center;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.login-key {
-    height: 100px;
-    font-size: 80px;
-    line-height: 100px;
-    background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.login-key img {
+    width: 80px;
 }
 
 .login-title {
     margin-top: 15px;
-    text-align: center;
     font-size: 30px;
     letter-spacing: 2px;
-    margin-top: 15px;
     font-weight: bold;
     color: #ECF0F5;
 }
 
 .login-form {
     margin-top: 25px;
-    text-align: left;
-}
-
-input[type=text] {
-    background-color: #1A2226;
-    border: none;
-    border-bottom: 2px solid #0DB8DE;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    margin-bottom: 20px;
-    padding-left: 0px;
-    color: #ECF0F5;
-}
-
-input[type=password] {
-    background-color: #1A2226;
-    border: none;
-    border-bottom: 2px solid #0DB8DE;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    padding-left: 0px;
-    margin-bottom: 20px;
-    color: #ECF0F5;
 }
 
 .form-group {
-    margin-bottom: 40px;
-    outline: 0px;
+    margin-bottom: 30px;
+    position: relative;
 }
 
-.form-control:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 2px solid #0DB8DE;
-    outline: 0;
+/* Asegura que todos los inputs y selects ocupen el 100% de su contenedor */
+input[type="text"].form-control,
+input[type="tel"].form-control,
+input[type="number"].form-control,
+select.form-control {
     background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #45bbd6;
+    color: #ECF0F5;
+    font-weight: bold;
+    outline: 0;
+    width: 100% !important;
+    padding: 10px 0 5px;
+    margin-top: 5px;
+    transition: border-color 0.3s ease;
+    appearance: none;
+}
+
+/* Estilo para el prefijo del código de país */
+.iti__selected-dial-code {
+    color: #45bbd6;
+    font-weight: bold;
+}
+
+/* Fondo del contenedor de banderas */
+.iti__flag-container {
+    background-color: #1A2226;
+    border: 1px solid #45bbd6;
+    border-radius: 4px;
+}
+
+/* Cambia el color de la bandera y el prefijo cuando el input está activo */
+.iti--separate-dial-code .iti__selected-dial-code,
+.iti--separate-dial-code .iti__selected-flag {
     color: #ECF0F5;
 }
 
-input:focus {
-    outline: none;
-    box-shadow: 0 0 0;
+/* Personalización para la lista de opciones del código de país */
+.iti .iti__country-list {
+    background-color: #222D32 !important;
+    color: #ECF0F5 !important;
+    border: 1px solid #45bbd6;
 }
 
-label {
-    margin-bottom: 0px;
+
+/* Cambia el color al pasar el mouse por encima de cada opción */
+.iti__country:hover {
+    background-color: #1A2226;
+}
+
+/* Personalización de cada bandera dentro de la lista de países */
+.iti__country .iti__flag {
+    margin-right: 8px;
+}
+
+/* Personalización para mejorar visibilidad del texto en el campo */
+#telefono {
+    color: #ECF0F5;
+    background-color: #1A2226;
+}
+
+
+/* Elimina el estilo predeterminado de la librería intl-tel-input */
+.iti {
+    width: 100% !important;
+}
+
+.iti input {
+    width: 100% !important;
+    padding-left: 10px;
+}
+
+/* Mantener el color del fondo cuando se selecciona */
+input[type="text"].form-control:focus,
+input[type="tel"].form-control:focus,
+input[type="number"].form-control:focus,
+select.form-control:focus {
+    background-color: #1A2226;
+    border-bottom-color: #27EF9F;
+    color: #ECF0F5;
+}
+
+/* Personalización del select con flecha */
+select.form-control {
+    padding-right: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="%23ECF0F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    color: #ECF0F5;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Estilo para las opciones del select */
+select.form-control option {
+    color: #333;
+    background-color: #7b9aca;
 }
 
 .form-control-label {
-    font-size: 10px;
+    font-size: 12px;
     color: #6C6C6C;
     font-weight: bold;
     letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    display: block;
+    margin-top: 0;
 }
 
 .btn-outline-primary {
-    border-color: #0DB8DE;
+    border: 2px solid #0DB8DE;
     color: #0DB8DE;
-    border-radius: 0px;
+    border-radius: 4px;
     font-weight: bold;
     letter-spacing: 1px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline-primary:hover {
     background-color: #0DB8DE;
-    right: 0px;
+    color: #FFF;
 }
 
-.login-btm {
-    float: left;
-}
-
-.login-button {
-    padding-right: 0px;
-    text-align: right;
-    margin-bottom: 25px;
-}
-
-.login-text {
-    text-align: left;
-    padding-left: 0px;
-    color: #A2A4A4;
-}
-
+/* Centra todo el contenido dentro de .loginbttm */
 .loginbttm {
-    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
 }
+
+/* Elimina cualquier alineación de texto innecesaria de .login-btm */
+.login-btm {
+    color: #A2A4A4;
+    text-align: center;
+    width: auto;
+}
+
+/* Estilos específicos para el botón */
+.login-button {
+    text-align: center;
+    width: auto;
+}
+

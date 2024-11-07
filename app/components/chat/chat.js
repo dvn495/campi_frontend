@@ -38,9 +38,15 @@ export class GeneralChat extends HTMLElement {
 
     webSocket(){
         let socket
+        const token = localStorage.getItem('authToken');
 
         document.addEventListener("DOMContentLoaded", function() {
-            socket = new WebSocket("ws://localhost:8080/chat");
+            if (token) {
+                socket = new WebSocket(`ws://localhost:8080/chat?token=${encodeURIComponent(token)}`);
+            } else {
+                console.error("No se encontró el token de autenticación.");
+                return;
+            }
 
             socket.onopen = function(event) {
                 let messageArea = document.getElementById("conversation");
