@@ -6,6 +6,8 @@
     --inputBg: #F2F2F2;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 body {
     background-image: url('/img/background.png');
     background-repeat: no-repeat;
@@ -15,6 +17,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 * {
@@ -30,6 +33,7 @@ body {
     height: 90vh;
     max-height: 890px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10px;
@@ -49,8 +53,8 @@ body {
 }
 
 img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
 }
 
 /*CONVERSATION USER-IA*/
@@ -66,15 +70,26 @@ img {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-color: var(--bgDark);
+}
+
+.container-answers{
+    width: 100%;
+    height: 80%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
     align-items: flex-start;
     scrollbar-color: var(--bgDark);
 }
 
-.conatiner-userMessage{
+.container-userMessage{
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;  
-    width: 100%;
+    width: 99%;
     padding: 6px;
     border-radius: 5px;
 }
@@ -98,7 +113,6 @@ img {
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
-    width: 100%;
     padding: 6px;
     border-radius: 5px;
 }
@@ -163,25 +177,248 @@ button {
     padding: 0 10px;
 }
 
+/* WELCOME*/
+.container-welcome{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.welcome-text{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight:bold;
+    width: 70%;
+    
+}
+
 /*RESPONSIVE*/
 
-@media (max-width: 768px) {
-    .container-box {
-        width: 95vw;
-        height: 90vh;
-    }
+/* Responsive: Ajustes para dispositivos pequeños */
 
+
+
+/* Título estilizado */
+.titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(25, 78, 146);
+    text-transform: uppercase;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de las preguntas frecuentes en estilo grid */
+#questions-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+/* Estilo de los botones de preguntas frecuentes */
+.faq-button {
+    padding: 10px 10px;
+    background-color: #4ca3af;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Efecto hover para los botones */
+.faq-button:hover {
+    background-color: #4592a0;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Efecto de clic en los botones */
+.faq-button:active {
+    transform: scale(1);
+}
+
+/* Estilo de las respuestas */
+.faq-answer {
+    grid-column: span 2;
+    padding: 15px;
+    background-color: #e0f7fa;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+    line-height: 1.6;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.social-links{
+    display: flex;
+    margin-left: 5%;
+    gap: 6px;
+    width: 100%;
+}
+
+/*CONTACT*/
+
+*:focus,
+*:active {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+    .wrapper {
+        margin: 0;
+    display: inline-flex;
+    list-style: none;
+  }
+  
+  .wrapper .icon {
+    position: relative;
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 15px;
+    margin: 3px;
+    width: 5px;
+    height: 5px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .wrapper .tooltip {
+    position: absolute;
+    top: 0;
+    font-size: 14px;
+    background: #ffffff;
+    color: #ffffff;
+    padding: 5px 8px;
+    border-radius: 5px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .wrapper .tooltip::before {
+    position: absolute;
+    content: "";
+    height: 8px;
+    width: 8px;
+    background: #ffffff;
+    bottom: -3px;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .wrapper .icon:hover .tooltip {
+    top: -45px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  
+  .wrapper .icon:hover span,
+  .wrapper .icon:hover .tooltip {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+  }
+  
+  .wrapper .facebook:hover,
+  .wrapper .facebook:hover .tooltip,
+  .wrapper .facebook:hover .tooltip::before {
+    background: #1877F2;
+    color: #ffffff;
+  }
+
+
+
+  @media (max-width: 768px) {
     .container-chat {
-        width: 100%;
-        height: 100%;
+        width: 100%; /* Ocupa todo el ancho */
+        height: 100%; /* Ajusta la altura para ocupar todo el espacio disponible */
+        position: relative; /* Asegura que los elementos hijos se posicionen en relación con este contenedor */
     }
 
     .container-chat_conversation {
-        height: 75%;
+        height: 82%; /* Aumenta el tamaño del área de conversación */
+        padding-bottom: 20px; /* Añade espacio al final para que la sección de mensajes no se superponga */
     }
 
     .container-chat_message {
-        height: 15%;
+        height: 12%; /* Ajusta la altura de la caja de mensajes */
+        position: absolute;
+        bottom: 10px; /* Sube la caja un poco para que parezca estar dentro del contenedor */
+        width: 95%; /* Asegura que ocupe todo el ancho del contenedor */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--inputBg); /* Asegura que el fondo coincida */
+        border-radius: 10px; /* Redondea los bordes para una mejor apariencia */
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para separarla visualmente */
+    }
+
+    .container-answers {
+        height: calc(100% - 12% - 20px); /* Ajusta la altura para que no se superponga */
+        padding-bottom: 5px; /* Espacio para el contenido */
+    }
+
+    .userMessage, .iaMessage {
+        font-size: 12px; /* Reduce el tamaño de la fuente */
+        padding: 8px; /* Reduce el padding para que los mensajes sean más compactos */
+        max-width: 70%; /* Asegura que los mensajes no ocupen todo el ancho */
+    }
+
+    .container-userMessage, .container-iaMessage {
+        padding: 4px; /* Reduce el espacio entre mensajes */
+    }
+
+    .container-chat_message {
+        height: 10%; /* Ajusta la altura para ocupar menos espacio */
+        padding: 5px; /* Reduce el padding para una apariencia más compacta */
+    }
+
+
+    .faq-button {
+        font-size: 10px; /* Tamaño de fuente más pequeño */
+        padding: 5px 7px; /* Reduce el padding para ocupar menos espacio */
+    }
+
+    .faq-answer {
+        font-size: 12px; /* Reduce el tamaño de las respuestas */
+    }
+
+    .welcome-text {
+        font-size: 8px; /* Ajusta el tamaño de la fuente de bienvenida */
+    }
+
+    img {
+        width: 50px;
+        height: 50px; /* Reduce el tamaño de la imagen */
+    }
+
+    .input-text {
+        font-size: 12px; /* Reduce el tamaño del input */
     }
 }
 
@@ -198,7 +435,27 @@ button {
         border-radius: 0;
     }
 
-    .input-text {
-        font-size: 14px;
+    #questions-container {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Menor ancho mínimo */
+        gap: 5px; /* Reduce el espacio entre botones */
+        padding: 5px; /* Reduce el padding */
+    }
+
+    .faq-button {
+        font-size: 8px; /* Tamaño de fuente muy pequeño */
+        padding: 3px 5px; /* Padding aún más reducido */
+    }
+
+    .faq-answer {
+        font-size: 10px; /* Reduce aún más el tamaño de las respuestas */
+    }
+
+    .titulo {
+        font-size: 14px; /* Reduce el tamaño del título */
+    }
+
+    .social-links {
+        margin-left: 2%;
+        gap: 3px; /* Reduce la separación entre íconos */
     }
 }
