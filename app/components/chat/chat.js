@@ -14,7 +14,6 @@ export class GeneralChat extends HTMLElement {
                     <div class="container-welcome">
                         <div class="container-img">
                             <img src="/img/campus (1).png">
-                            
                         </div>
                         <br>
                         <div class="welcome-text">
@@ -22,19 +21,27 @@ export class GeneralChat extends HTMLElement {
                         </div>
                     </div>
                     <br>
-                    <div class="titulo" id="faqTitle">Preguntas frecuentes</div>
-                    <div id="questions-container">
-                        <button class="faq-button" id="pregunta1">¿Qué es Campuslands?</button>
-                        <button class="faq-button" id="pregunta2">¿Dónde están ubicados?</button>
-                        <button class="faq-button" id="pregunta3">¿Cuáles son los requisitos para ser parte de Campuslands?</button>
-                        <button class="faq-button" id="pregunta4">¿Cuánto cuesta ingresar?</button>
-                        <button class="faq-button" id="pregunta5">¿Cómo es el plan académico?</button>
-                        <button class="faq-button" id="pregunta6">¿Qué oportunidades laborales hay?</button>
+                    <!-- Botón para abrir el modal de preguntas frecuentes -->
+                    <button id="faqButton" class="faq-button">Preguntas frecuentes</button>
+
+                    <!-- Modal de preguntas frecuentes -->
+                    <div id="faqModal" class="modal">
+                        <div class="modal-content">
+                            <span id="closeModal" class="close">&times;</span>
+                            <div id="questions-container">
+                                <button class="faq-button" id="pregunta1">¿Qué es Campuslands?</button>
+                                <button class="faq-button" id="pregunta2">¿Dónde están ubicados?</button>
+                                <button class="faq-button" id="pregunta3">¿Cuáles son los requisitos para ser parte de Campuslands?</button>
+                                <button class="faq-button" id="pregunta4">¿Cuánto cuesta ingresar?</button>
+                                <button class="faq-button" id="pregunta5">¿Cómo es el plan académico?</button>
+                                <button class="faq-button" id="pregunta6">¿Qué oportunidades laborales hay?</button>
+                            </div>
+                        </div>
                     </div>
                     <br>
                     <div id="conversation" class="container-answers"> </div>
                 </div>  
-                
+
                 <div id="message" class="container-chat_message">
                     <div class="messageToSend">
                         <input type="text" class="input-text" name="nombre" id="messageInput" placeholder=" Escribe un mensaje">  
@@ -44,40 +51,6 @@ export class GeneralChat extends HTMLElement {
                     </div>
                 </div>
             </div>
-            <br>
-            <ul class="wrapper">
-                <li class="icon facebook">
-                    <a href="https://www.facebook.com/Campuslands/?locale=es_LA" target="_blank">
-                        <box-icon type='logo' name='facebook-circle'></box-icon>
-                    </a>
-                    <span class="tooltip">Facebook</span>
-                </li>
-                <li class="icon facebook">
-                    <span class="tooltip">Linkedin</span>
-                    <a href="https://www.linkedin.com/company/campuslands" target="_blank">
-                        <box-icon name='linkedin-square' type='logo'></box-icon>
-                    </a>
-                </li>
-                <li class="icon facebook">
-                    <span class="tooltip">Instagram</span>
-                    <a href="https://www.instagram.com/campuslands/" target="_blank">
-                        <box-icon type='logo' name='instagram'></box-icon>
-                    </a>
-                </li>
-                <li class="icon facebook">
-                    <span class="tooltip">WhatsApp</span>
-                    <a href="https://wa.me/573177709345" target="_blank">
-                        <box-icon name='whatsapp' type='logo'></box-icon>
-                    </a>
-                </li>
-                <li class="icon facebook">
-                    <span class="tooltip">Inscribete</span>
-                    <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">
-                        <box-icon name='notepad'></box-icon>
-                    </a>
-                </li>
-            </ul>
-
         </section>
         `;
     }
@@ -106,7 +79,7 @@ export class GeneralChat extends HTMLElement {
                             <br>¡Cupos limitados, no te quedes fuera!
                             </div></div><br>
                             `;
-                        messageArea.scrollTop = messageArea.scrollHeight; // Asegura el scroll al final
+                        messageArea.scrollTop = messageArea.scrollHeight;
                     }
                 } else {
                     console.error("Elemento con ID 'conversation' no encontrado.");
@@ -150,6 +123,27 @@ export class GeneralChat extends HTMLElement {
     }
 
     addEventListeners() {
+        const faqButton = document.getElementById("faqButton");
+        const faqModal = document.getElementById("faqModal");
+        const closeModal = document.getElementById("closeModal");
+    
+        // Abre el modal cuando se hace clic en el botón de preguntas frecuentes
+        faqButton.onclick = () => {
+            faqModal.style.display = "block";
+        };
+    
+        // Cierra el modal cuando se hace clic en la "x"
+        closeModal.onclick = () => {
+            faqModal.style.display = "none";
+        };
+    
+        // Cierra el modal cuando se hace clic fuera del contenido del modal
+        window.onclick = (event) => {
+            if (event.target == faqModal) {
+                faqModal.style.display = "none";
+            }
+        };
+    
         const questions = [
             { id: 'pregunta1', question: '¿Qué es Campuslands?' },
             { id: 'pregunta2', question: '¿Dónde están ubicados?' },
@@ -158,10 +152,27 @@ export class GeneralChat extends HTMLElement {
             { id: 'pregunta5', question: '¿Cómo es el plan académico?' },
             { id: 'pregunta6', question: '¿Qué oportunidades laborales hay?' }
         ];
+    
+        // Asigna eventos de clic a cada pregunta
         questions.forEach(q => {
-            document.getElementById(q.id).addEventListener('click', () => this.handleQuestionClick(q.id));
+            document.getElementById(q.id).addEventListener('click', () => {
+                this.handleQuestionClick(q.id);
+                
+                // Oculta el botón de la pregunta después de hacer clic en él
+                document.getElementById(q.id).style.display = "none";
+    
+                // Verifica si todas las preguntas han sido respondidas
+                const allQuestionsAnswered = questions.every(q => document.getElementById(q.id).style.display === "none");
+    
+                if (allQuestionsAnswered) {
+                    // Cierra el modal y oculta el botón de preguntas frecuentes
+                    faqModal.style.display = "none";
+                    faqButton.style.display = "none";
+                }
+            });
         });
     }
+    
 
     handleQuestionClick(questionId) {
         const respuestas = {
@@ -176,20 +187,19 @@ export class GeneralChat extends HTMLElement {
         const answerContainer = document.getElementById("conversation");
         if (answerContainer) {
             answerContainer.innerHTML += `<div class="container-iaMessage"><div class="iaMessage"><strong></strong> ${respuesta}</div></div><br>`; 
+            answerContainer.innerHTML += `
+                            <div class="container-iaMessage"><div class="iaMessage">
+                            ¡Inscríbete en Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
+                            <br>Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a Campuslands</a>
+                            <br>¡Cupos limitados, no te quedes fuera!
+                            </div></div><br>
+                            `;
             answerContainer.scrollTop = answerContainer.scrollHeight;
         }
 
         const button = document.getElementById(questionId);
         if (button) {
             button.style.display = "none"; 
-        }
-
-        const allButtonsHidden = Array.from(document.querySelectorAll(".faq-button")).every(button => button.style.display === "none");
-        if (allButtonsHidden) {
-            const faqTitle = document.getElementById("faqTitle");
-            if (faqTitle) {
-                faqTitle.style.display = "none"; // Oculta el título cuando todos los botones están ocultos
-            }
         }
     }
 }
