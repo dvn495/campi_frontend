@@ -38,7 +38,7 @@ btnEnterChat.addEventListener("click", async e => {
                 console.log('Login exitoso! Redirigiendo...');
                 const data = await responseLogin.json();
                 localStorage.setItem('authToken', data.token);
-                window.location.href = '/View/index.html';
+                window.location.href = '/View/chat.html';
             } else {
                 console.error('Error en el login:', await responseLogin.text());
             }
@@ -52,7 +52,7 @@ btnEnterChat.addEventListener("click", async e => {
                 console.log('Usuario registrado con éxito! Redirigiendo...');
                 const userData = await responseCreate.json();
                 localStorage.setItem('authToken', userData.token);
-                window.location.href = '/View/index.html';
+                window.location.href = '/View/chat.html';
                 return; // Termina la función después de registrar
             }
         } catch (registerError) {

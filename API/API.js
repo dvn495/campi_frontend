@@ -79,7 +79,7 @@
                     messageElement.textContent = 'Login exitoso! Redirigiendo...';
                 }
                 localStorage.setItem('authToken', data ? data.token : '');
-                window.location.href = '/View/index.html'; 
+                window.location.href = '/View/chat.html'; 
             } else {
                 if (messageElement) {
                     messageElement.textContent = data ? data.message : 'Error en el login';
