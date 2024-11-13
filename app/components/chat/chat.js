@@ -51,6 +51,39 @@ export class GeneralChat extends HTMLElement {
                     </div>
                 </div>
             </div>
+            <br>
+            <ul class="wrapper">
+                <li class="icon facebook">
+                    <a href="https://www.facebook.com/Campuslands/?locale=es_LA" target="_blank">
+                        <box-icon type='logo' name='facebook-circle'></box-icon>
+                    </a>
+                    <span class="tooltip">Facebook</span>
+                </li>
+                <li class="icon facebook">
+                    <span class="tooltip">Linkedin</span>
+                    <a href="https://www.linkedin.com/company/campuslands" target="_blank">
+                        <box-icon name='linkedin-square' type='logo'></box-icon>
+                    </a>
+                </li>
+                <li class="icon facebook">
+                    <span class="tooltip">Instagram</span>
+                    <a href="https://www.instagram.com/campuslands/" target="_blank">
+                        <box-icon type='logo' name='instagram'></box-icon>
+                    </a>
+                </li>
+                <li class="icon facebook">
+                    <span class="tooltip">WhatsApp</span>
+                    <a href="https://wa.me/573177709345" target="_blank">
+                        <box-icon name='whatsapp' type='logo'></box-icon>
+                    </a>
+                </li>
+                <li class="icon facebook">
+                    <span class="tooltip">Inscribete</span>
+                    <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">
+                        <box-icon name='notepad'></box-icon>
+                    </a>
+                </li>
+            </ul>
         </section>
         `;
     }
