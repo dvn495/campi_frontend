@@ -1,11 +1,11 @@
-    const URL_API = "http://localhost:8080";
+    const URL_API = "https://chatcampuslands.com:8443/chatbot";
 
     // BASIC CRUD
 
     const myHeaders = () => {
         const token = localStorage.getItem('authToken');
         return new Headers({
-            "content-Type": "aplication/json",
+            "content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         });
     };
@@ -62,35 +62,15 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(datos),
+                body: JSON.stringify(datos)
             });
     
-            let data;
-            try {
-                data = await response.json();
-            } catch {
-                data = null; // Si la respuesta no es JSON válido
-            }
+            // Return the response and let the calling code handle the redirect
+            return response;
     
-            const messageElement = document.getElementById('message');
-    
-            if (response.ok) {
-                if (messageElement) {
-                    messageElement.textContent = 'Login exitoso! Redirigiendo...';
-                }
-                localStorage.setItem('authToken', data ? data.token : '');
-                window.location.href = '/View/chat.html'; 
-            } else {
-                if (messageElement) {
-                    messageElement.textContent = data ? data.message : 'Error en el login';
-                }
-            }
         } catch (error) {
-            console.error('Error durante el login:', error);
-            const messageElement = document.getElementById('message');
-            if (messageElement) {
-                messageElement.textContent = 'Error de conexión';
-            }
+            console.error('Error durante el proceso:', error);
+            throw error; // Propagate the error to be handled by the caller
         }
     };
     

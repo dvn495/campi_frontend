@@ -1,7 +1,7 @@
 import { postData } from "../../../API/API.js";
 
 
-export class GeneralChat extends HTMLElement {
+export class BogotaChat extends HTMLElement {
     constructor() {
         super();
         this.render();
@@ -112,7 +112,7 @@ export class GeneralChat extends HTMLElement {
     webSocket() {
         let socket;
         document.addEventListener("DOMContentLoaded", () => {
-            socket = new WebSocket("wss://chatcampuslands.com:8443/chatbot/chat");
+            socket = new WebSocket("wss://chatcampuslands.com:8443/chatbot/chatBogota");
             socket.onopen = () => {
                 console.log("Conexión WebSocket establecida.");
             };
@@ -282,5 +282,6 @@ export class GeneralChat extends HTMLElement {
         }
     }
 }
+customElements.define("bogota-chat", BogotaChat);
 
-customElements.define("general-chat", GeneralChat);
+

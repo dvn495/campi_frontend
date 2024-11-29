@@ -4,6 +4,12 @@
     --bgDark: #17345A;
     --lightGrey: #D9D9D9;
     --inputBg: #F2F2F2;
+    --bg: #3C465C;
+    --primary: #78FFCD;
+    --solid: #fff;
+    --btn-w: 10em;
+    --dot-w: calc(var(--btn-w) * 0.2);
+    --tr-X: calc(var(--btn-w) - var(--dot-w));
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
@@ -23,6 +29,10 @@ body {
 * {
     scrollbar-width: thin;
 }
+
+
+  
+
 
 
 .container-box {
@@ -56,6 +66,144 @@ img {
     width: 150px;
     height: 150px;
 }
+
+/*admin*/
+
+.admin-button{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    
+}
+
+/* Admin Panel Styles */
+.admin-container {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.adminSectionPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #1A2226;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.containerTables{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.admin-title {
+    color: #ECF0F5;
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+
+#adminPassword {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #45bbd6;
+    color: #ECF0F5;
+    font-weight: bold;
+    padding: 10px 15px;
+    width: 300px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+#adminPassword:focus {
+    border-bottom-color: #27EF9F;
+    outline: none;
+}
+
+#submitPassword {
+    border: 2px solid #0DB8DE;
+    color: #0DB8DE;
+    background: transparent;
+    border-radius: 4px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+#submitPassword:hover {
+    background-color: #0DB8DE;
+    color: #FFF;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th, .data-table td {
+    padding: 12px;
+    text-align: left;
+    color: #ECF0F5;
+    border-bottom: 1px solid #45bbd6;
+}
+
+.data-table th {
+    background-color: #222D32;
+    font-weight: bold;
+}
+
+.buttons-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #222D32;
+    border-radius: 8px;
+}
+
+.titleExport {
+    color: #ECF0F5;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin: 0;
+    min-width: max-content;
+}
+
+.export-btn {
+    background: transparent;
+    border: 2px solid #45bbd6;
+    color: #45bbd6;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+    background: #45bbd6;
+    color: #1A2226;
+    transform: translateY(-2px);
+}
+
+.export-btn:active {
+    transform: translateY(0);
+}
+
 
 /*CONVERSATION USER-IA*/
 
@@ -177,6 +325,18 @@ button {
     padding: 0 10px;
 }
 
+button#btnSendMessage {
+    display: flex;
+}
+
+/* Animation for user and AI messages */
+
+.container-userMessage, 
+.container-iaMessage {
+    animation: fadeIn 0.5s ease-out;
+}
+
+
 /* WELCOME*/
 .container-welcome{
     display: flex;
@@ -207,6 +367,12 @@ button {
     background-color: rgba(0,0,0,0.4);
 }
 
+
+.modal-content {
+    animation: modalFadeIn 0.3s ease-out;
+    animation-fill-mode: forwards;
+}
+
 .modal-content {
     background-color: #fefefe;
     margin: 10% auto;
@@ -232,29 +398,6 @@ button {
     text-decoration: none;
     cursor: pointer;
 }
-
-.faq-button {
-    padding: 10px 15px;
-    margin: 5px;
-    background-color: #4ca3af;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.faq-button:hover {
-    background-color: #4592a0;
-}
-
-
-/*RESPONSIVE*/
-
-/* Responsive: Ajustes para dispositivos pequeños */
-
-
 
 /* Título estilizado */
 .titulo {
@@ -283,27 +426,19 @@ button {
 
 /* Estilo de los botones de preguntas frecuentes */
 .faq-button {
-    padding: 10px 10px;
-    background-color: #4ca3af;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    font-weight: 500;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 5px;
+    font-weight: bold;
+    background-color: transparent;
+    color: var(--bgDark);
+    transition: all 0.2s ease-out;
+}   
+
+.br_questions{
+    display: none;
 }
 
-/* Efecto hover para los botones */
-.faq-button:hover {
-    background-color: #4592a0;
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+.faq-button:hover{
+    transform: scale(1.1);
 }
 
 /* Efecto de clic en los botones */
@@ -312,6 +447,17 @@ button {
 }
 
 /* Estilo de las respuestas */
+.warning_time{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    opacity: 0.3;
+    text-align: center;
+}
+
 .faq-answer {
     grid-column: span 2;
     padding: 15px;
@@ -331,6 +477,84 @@ button {
     width: 100%;
 }
 
+/* Container for the inscription button */
+.container-inscription-button {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centers the button */
+}
+
+/* Button Style */
+.btnInscription {
+    position: relative;
+    margin: 0 auto;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--primary); /* Text color */
+    background: var(--bgDark); /* Button background */
+    border: none; /* Removes default border */
+    border-radius: 50px; /* Rounded border */
+    cursor: pointer;
+    text-decoration: none; /* Removes underline */
+    overflow: hidden; /* Ensures pseudo-elements stay within bounds */
+    z-index: 1; /* Ensures content stays on top */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-out; /* Subtle default shadow */
+}
+
+.btnInscription:hover{
+    transform: scale(1.1);
+}
+
+/* Light Effect (Glowing Animation) */
+.btnInscription::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    z-index: -1; /* Places the effect behind the button */
+    border-radius: 50px; /* Matches the button’s rounded corners */
+    background: radial-gradient(circle, rgba(120, 255, 205, 0.3), rgba(0, 119, 255, 0.1));
+    animation: lightGlow 3s infinite ease-in-out;
+    filter: blur(15px);
+}
+
+
+/* WAITING DOTS*/
+
+.waiting-button {
+    opacity: 0.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin: 10px auto;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+}
+
+.dot:nth-child(1) {
+    animation-delay: 0s;
+}
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+
+
 /*CONTACT*/
 
 *:focus,
@@ -339,11 +563,16 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-    .wrapper {
-        margin: 0;
+a{
+    display: flex;
+}
+
+.wrapper {
+    padding: 10px 0px 0px 0px;
+    margin: 0;
     display: inline-flex;
     list-style: none;
-  }
+}
   
   .wrapper .icon {
     position: relative;
@@ -408,74 +637,191 @@ button {
     color: #ffffff;
   }
 
+/*KEY FRAMES*/
 
+@keyframes fadeIn {
+    from {
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.95);
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes atomInscription {
+    0% {
+      transform: translateX(0) rotate(0);
+    }
+    30% {
+      transform: translateX(var(--tr-X)) rotate(0);
+    }
+    50% {
+      transform: translateX(var(--tr-X)) rotate(180deg);
+    }
+    80% {
+      transform: translateX(0) rotate(180deg);
+    }
+    100% {
+      transform: translateX(0) rotate(360deg);
+    }
+}
+
+/* Keyframes for glowing effect */
+@keyframes lightGlow {
+    0% {
+        transform: translateX(-50%) translateY(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(50%) translateY(50%) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateX(-50%) translateY(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/*RESPONSIVE*/
 
   @media (max-width: 768px) {
+    .container-box {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        padding: 0;
+    }
+
     .container-chat {
-        width: 100%; /* Ocupa todo el ancho */
-        height: 100%; /* Ajusta la altura para ocupar todo el espacio disponible */
-        position: relative; /* Asegura que los elementos hijos se posicionen en relación con este contenedor */
+        width: 100%; 
+        height: 100%; 
+        position: relative; 
     }
 
     .container-chat_conversation {
-        height: 82%; /* Aumenta el tamaño del área de conversación */
-        padding-bottom: 20px; /* Añade espacio al final para que la sección de mensajes no se superponga */
+        height: 82%; 
+        padding-bottom: 20px; 
     }
 
     .container-chat_message {
-        height: 12%; /* Ajusta la altura de la caja de mensajes */
+        height: 12%; 
         position: absolute;
-        bottom: 10px; /* Sube la caja un poco para que parezca estar dentro del contenedor */
-        width: 95%; /* Asegura que ocupe todo el ancho del contenedor */
+        bottom: 10px; 
+        width: 95%; 
         left: 50%;
         transform: translateX(-50%);
-        background-color: var(--inputBg); /* Asegura que el fondo coincida */
-        border-radius: 10px; /* Redondea los bordes para una mejor apariencia */
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para separarla visualmente */
+        background-color: var(--inputBg); 
+        border-radius: 10px; 
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);  
     }
 
     .container-answers {
-        height: calc(100% - 12% - 20px); /* Ajusta la altura para que no se superponga */
-        padding-bottom: 5px; /* Espacio para el contenido */
+        height: calc(100% - 12% - 20px); 
+        padding-bottom: 5px; 
     }
 
     .userMessage, .iaMessage {
-        font-size: 12px; /* Reduce el tamaño de la fuente */
-        padding: 8px; /* Reduce el padding para que los mensajes sean más compactos */
-        max-width: 70%; /* Asegura que los mensajes no ocupen todo el ancho */
+        font-size: 12px; 
+        padding: 8px; 
+        max-width: 70%;
     }
 
     .container-userMessage, .container-iaMessage {
-        padding: 4px; /* Reduce el espacio entre mensajes */
+        padding: 4px; 
     }
 
     .container-chat_message {
-        height: 10%; /* Ajusta la altura para ocupar menos espacio */
-        padding: 5px; /* Reduce el padding para una apariencia más compacta */
+        height: 7%; 
+        padding: 5px;
+        border-radius: 50px;
     }
 
 
     .faq-button {
-        font-size: 10px; /* Tamaño de fuente más pequeño */
-        padding: 5px 7px; /* Reduce el padding para ocupar menos espacio */
+        font-size: 18px; 
     }
 
     .faq-answer {
-        font-size: 12px; /* Reduce el tamaño de las respuestas */
+        font-size: 12px; 
     }
 
     .welcome-text {
-        font-size: 8px; /* Ajusta el tamaño de la fuente de bienvenida */
+        width: 100%;
+        font-size: 12px; 
     }
 
     img {
         width: 50px;
-        height: 50px; /* Reduce el tamaño de la imagen */
+        height: 50px; 
     }
 
     .input-text {
-        font-size: 12px; /* Reduce el tamaño del input */
+        font-size: 14px; 
     }
+
+    .faq-button{
+        margin-top: 10px;
+        font-size: 12px;
+    }
+
+    .btnInscription{
+        font-size: 14px;
+    }
+
+    .warning_time{
+        font-size: 12px;
+    }
+
+    .wrapper{
+        padding: 10px 0px 10px 0px;
+    }
+
 }
 
 @media (max-width: 480px) {
@@ -483,6 +829,7 @@ button {
         width: 100vw;
         height: 100vh;
         border-radius: 0;
+        
     }
 
     .container-chat {
@@ -492,26 +839,25 @@ button {
     }
 
     #questions-container {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Menor ancho mínimo */
-        gap: 5px; /* Reduce el espacio entre botones */
-        padding: 5px; /* Reduce el padding */
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+        gap: 5px; 
+        padding: 5px; 
     }
 
-    .faq-button {
-        font-size: 8px; /* Tamaño de fuente muy pequeño */
-        padding: 3px 5px; /* Padding aún más reducido */
-    }
+    
 
     .faq-answer {
-        font-size: 10px; /* Reduce aún más el tamaño de las respuestas */
+        font-size: 10px; 
     }
 
     .titulo {
-        font-size: 14px; /* Reduce el tamaño del título */
+        font-size: 14px; 
     }
 
     .social-links {
         margin-left: 2%;
-        gap: 3px; /* Reduce la separación entre íconos */
+        gap: 3px; 
     }
 }
+
+

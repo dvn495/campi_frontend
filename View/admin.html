@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script type="module" src="../app/components/admin/admin.js" defer></script>
+</head>
+<body>
+    <div class="admin-container" >
+        <section class="adminSectionPanel" >
+            <h1 class="admin-title">Admin Panel</h1>
+            <div>
+                <input type="password" id="adminPassword" placeholder="Enter Password">
+                <button id="submitPassword">Submit</button>
+            </div>
+            <div id="container-answersUsers"class="container-answersUsers" style="display: none;">
+                <div class="buttons-title">
+                    <h3 class="titleExport">Export table to:</h3>
+                    <button class="export-btn" id="btnXlsx">Xlsx</button>
+                    <button class="export-btn" id="btnXls">Xls</button>
+                    <button class="export-btn" id="btnCsv">CSV</button>
+                </div>
+                <div class="containerTables">
+                    <div id="dataTableContainer" style="display: none;">
+                    
+                        <table class="data-table" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Message</th>
+                                    <th>ID</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Datos dinámicos -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="dataUserContainer" style="display: none;"> 
+                        <table class="data-table" id="userTable">
+                            <thead>
+                                <tr>
+                                    <th>User Id</th>
+                                    <th>Username</th>
+                                    <th>Phone Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Datos dinámicos -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div id="errorMessage" style="color: red; display: none;">Invalid password</div>
+        </section>
+        
+    </div>
+    <script src="/app/components/sheet/sheet.js"></script>
+</body>
+</html>
