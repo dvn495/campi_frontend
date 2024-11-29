@@ -16,97 +16,55 @@ const endpointRegister = "auth/register";
 btnEnterChat.addEventListener("click", async (e) => {
     e.preventDefault();
     
-    if (!validateForm()) return;
+    const isValid = validateForm();
+    if (!isValid) return;
+
+    if (userInputPhone && iti) {
+        userPhone = `${iti.getSelectedCountryData().dialCode}${userInputPhone.value}`;
+    }
+
+    if (!userName.value || !userPhone || !userCity.value) {
+        console.error("Por favor, completa todos los campos requeridos.");
+        alert("Todos los campos son obligatorios.");
+        return;
+    }
+
+    let datos = Object.fromEntries(new FormData(userDataForm).entries());
+    datos.id = 0;
+    datos.username = userName.value;
+    datos.telefono = userPhone;
+    datos.role = "USER";
+
 
     try {
-        btnEnterChat.disabled = true; // Prevent double submission
-        
-        // Prepare user data
-        const datos = {
-            id: 0,
-            username: userName.value.trim(),
-            telefono: userInputPhone && iti ? 
-                `${iti.getSelectedCountryData().dialCode}${userInputPhone.value}` : '',
-            role: "USER"
-        };
-
-        // First try login
         console.log('Intentando iniciar sesión...');
-        const loginResponse = await authData(datos, endpointLogin);
-        
-        if (loginResponse.ok) {
-            const data = await loginResponse.json();
+        const responseLogin = await authData(datos, endpointLogin);
+        if (responseLogin.ok) {
+            console.log('Login exitoso! Redirigiendo...');
+            const data = await responseLogin.json();
             localStorage.setItem('authToken', data.token);
-            await setupWebSocketConnection(userCity.value);
-            return;
-        }
-
-        // If login fails, try registration
-        console.log('Usuario no encontrado, intentando registro...');
-        const registerResponse = await authData(datos, endpointRegister);
-
-        if (registerResponse.ok) {
-            const data = await registerResponse.json();
-            localStorage.setItem('authToken', data.token);
-            await setupWebSocketConnection(userCity.value);
-            return;
-        }
-
-        // Handle errors
-        if (registerResponse.status === 409) {
-            alert("Este usuario ya existe. Por favor, intenta con otro nombre de usuario.");
+            redirectToCity(userCity.value);
         } else {
-            alert("Hubo un error durante el proceso. Por favor, intenta nuevamente.");
+            console.error('Error en el login:', await responseLogin.text());
         }
-
-    } catch (error) {
-        console.error('Error:', error);
-        alert("Error de conexión. Por favor, verifica tu conexión e intenta nuevamente.");
-    } finally {
-        btnEnterChat.disabled = false;
+    } catch (loginError) {
+        console.error('Error durante el login:', loginError);
     }
-});
-
-async function setupWebSocketConnection(city) {
+    // Intenta registrar al usuario primero
     try {
-        // First establish WebSocket connection
-        const wsUrl = `wss://chatcampuslands.com:8443/chatbot/chat?city=${encodeURIComponent(city)}`;
-        const ws = new WebSocket(wsUrl);
-        
-        await new Promise((resolve, reject) => {
-            ws.onopen = () => {
-                console.log('WebSocket conectado exitosamente');
-                resolve();
-            };
-            
-            ws.onerror = (error) => {
-                console.error('Error de WebSocket:', error);
-                reject(error);
-            };
-
-            // Set timeout for connection attempt
-            setTimeout(() => reject(new Error('Timeout connecting to WebSocket')), 5000);
-        });
-
-        // Only redirect after successful WebSocket connection
-        const routes = {
-            "Bucaramanga": '/View/chat.html',
-            "Bogota": '/View/chatBogota.html'
-        };
-
-        const route = routes[city];
-        if (route) {
-            window.location.href = route;
-        } else {
-            throw new Error("Ciudad no reconocida");
+        const responseCreate = await authData(datos, endpointRegister);
+        if (responseCreate.ok) {
+            console.log('Usuario registrado con éxito! Redirigiendo...');
+            const userData = await responseCreate.json();
+            localStorage.setItem('authToken', userData.token);
+            redirectToCity(userCity.value);
+            return; // Termina la función después de registrar
         }
-
-    } catch (error) {
-        console.error('Error estableciendo conexión:', error);
-        alert("Error conectando al chat. Por favor, intenta nuevamente.");
-        throw error;
+    } catch (registerError) {
+        console.warn('Error en el registro:', registerError);
     }
-}
+
+});
 
 // Valida el formulario antes de proceder
 function validateForm() {
@@ -116,4 +74,16 @@ function validateForm() {
     }
     return true;
 }
+function redirectToCity(city) {
+    const Bucaramanga = '/View/chat.html';
+    const Bogota = '/View/chatBogota.html';
 
+
+    if (city === "Bucaramanga") {
+        window.location.href = Bucaramanga; // Cambiar ruta si es necesario
+    } else if (city === "Bogota") {
+        window.location.href = Bogota; // Cambiar ruta si es necesario
+    } else {
+        alert("Ciudad no reconocida. Por favor selecciona una opción válida.");
+    }
+}
