@@ -190,7 +190,7 @@ export class GeneralChat extends HTMLElement {
             messageArea.innerHTML += '<div class="container-userMessage"><div class="userMessage">' + userMessageInput + '</div></div><br>';
             socket.send(jsonString);
             console.log(userMessageInput);
-            // postData(userMessageInput, endpoint);
+            postData(userMessageInput, endpoint);
             messageInput.value = '';
             messageArea.scrollTop = messageArea.scrollHeight;
         }

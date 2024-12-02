@@ -7,13 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const userTableContainer = document.getElementById('dataUserContainer');
     const containerAnswersData = document.getElementById('container-answersUsers')
     const errorMessage = document.getElementById('errorMessage');
-    const containerAdmin = document.getElementById("adminSection");
     const btnXlsx = document.querySelector('#btnXlsx');
     const btnXls = document.querySelector('#btnXls');
     const btnCsv = document.querySelector('#btnCsv');
+    const startDate = document.getElementById('startDate');
+    const endDate = document.getElementById('endDate');
+    const submitDateRange = document.getElementById('submitDateRange');
 
-    // Contraseña estática para este ejemplo (en producción debe validarse en el backend)
-    const ADMIN_PASSWORD = 'campuslands2024';
+    let ADMIN_PASSWORD = "";
+    fetchPassword();
 
     // Evento al hacer clic en el botón "Submit"
     submitPasswordButton.addEventListener('click', async () => {
@@ -21,14 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (enteredPassword === ADMIN_PASSWORD) {
             errorMessage.style.display = 'none'; // Oculta el mensaje de error
-            dataTableContainer.style.display = 'block'; // Muestra la tabla
-            userTableContainer.style.display= 'block';
+            // dataTableContainer.style.display = 'block'; // Muestra la tabla
+            // userTableContainer.style.display= 'block';
             containerAnswersData.style.display= 'block';
-            // containerAdmin.style.display= 'block';
             passwordInput.style.display = 'none';
             submitPasswordButton.style.display = 'none';
-            await fetchTodayData(); // Llama al método para cargar los datos
-            await fetchUserTodayData();
             btnXlsx.onclick = () =>{
                 exportData('xlsx', dataTableContainer, dataUserContainer);
             }
@@ -42,17 +41,38 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMessage.style.display = 'block'; // Muestra el mensaje de error
         }
     });
+
+    submitDateRange.addEventListener('click', async() => {
+        const enteredStartDate = startDate.value;
+        const enteredEndDate = endDate.value;
+
+        if (!enteredStartDate || !enteredEndDate) {
+            alert('Por favor selecciona un rango de fechas válido.');
+            return;
+        }
+    
+        try {
+            // Obtener datos basados en el rango de fechas seleccionado
+            await fetchDataByDateRange(enteredStartDate, enteredEndDate);
+            await fetchUserDataByDateRange(enteredStartDate, enteredEndDate);
+            dataTableContainer.style.display = 'block'; // Muestra la tabla
+            userTableContainer.style.display= 'block';
+        } catch (error) {
+            console.error('Error al consultar datos:', error);
+        }
+       
+    })
 });
 
 
 
-async function fetchTodayData() {
+async function fetchDataByDateRange(startDate, endDate) {
     const tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = ''; // Limpia cualquier dato existente
 
     try {
         // Llama al API para obtener datos
-        const { data, error } = await getData('admin/messages/today');
+        const { data, error } = await getData(`admin/messages/today?start=${startDate}&end=${endDate}`);
 
         if (error || !data) {
             console.error('Error fetching data:', error);
@@ -77,13 +97,13 @@ async function fetchTodayData() {
     }
 }
 
-async function fetchUserTodayData() {
+async function fetchUserDataByDateRange(startDate, endDate) {
     const tableBody = document.querySelector('#userTable tbody');
     tableBody.innerHTML = ''; // Limpia cualquier dato existente
 
     try {
         // Llama al API para obtener datos
-        const { data, error } = await getData('admin/users/today');
+        const { data, error } = await getData(`admin/users/today?start=${startDate}&end=${endDate}`);
 
         if (error || !data) {
             console.error('Error fetching data:', error);
@@ -106,6 +126,26 @@ async function fetchUserTodayData() {
         console.error('Error fetching today data:', error);
     }
 }
+
+async function fetchPassword() {
+    const passwordEndpoint = "password/get"
+
+    try {
+        const { data, error } = await getData(passwordEndpoint);
+
+        if (error || !data) {
+            console.error('Error fetching data:', error);
+            return;
+        }
+
+        ADMIN_PASSWORD = data.password;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+
+
 
 function exportData(type, dataTableContainer, dataUserContainer){
     console.log(type);

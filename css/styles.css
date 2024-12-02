@@ -73,7 +73,23 @@ img {
     position: absolute;
     top: 5px;
     right: 10px;
+    appearance: none;
+    color: #45bbd6;
+    font-family: “Helvetica”, arial, sans-serif;
+    font-size: 15px;
+    border:2px solid #45bbd6;
+    background:#222D32;
+    border-radius: 8px;
+    padding: 4px;
+    display: inline-block;
+    transition: all 0.3s ease-out;
     
+}
+
+.admin-button:hover {
+    background: #45bbd6;
+    color: #1A2226;
+    transform: translateY(-2px);
 }
 
 /* Admin Panel Styles */
@@ -92,15 +108,19 @@ img {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 500px;
     margin: 20px auto;
 }
 
 .containerTables{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items:flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: var(--bgDark);
+    max-height: 600px;
+    gap: 25px;
+    
 }
 .admin-title {
     color: #ECF0F5;
@@ -111,6 +131,42 @@ img {
     text-transform: uppercase;
 }
 
+.date-title{
+    color: #ECF0F5;
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.form-date__input {
+    appearance: none;
+    color: #45bbd6;
+    font-family: “Helvetica”, arial, sans-serif;
+    font-size: 15px;
+    border:2px solid #45bbd6;
+    background:#222D32;
+    border-radius: 8px;
+    padding: 4px;
+    display: inline-block;
+    visibility: visible;
+    width: 140px;
+    transition: all 0.3s ease-out;
+}
+
+.form-date__input:hover {
+    background: #45bbd6;
+    color: #1A2226;
+    transform: translateY(-2px);
+}
+
+
+.form-date__input:focus {
+    background: #45bbd6;
+    color: #1A2226;
+    border-color: #80BDFF;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
 
 #adminPassword {
     background-color: #1A2226;

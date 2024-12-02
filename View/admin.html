@@ -15,7 +15,16 @@
                 <input type="password" id="adminPassword" placeholder="Enter Password">
                 <button id="submitPassword">Submit</button>
             </div>
-            <div id="container-answersUsers"class="container-answersUsers" style="display: none;">
+            <div id="container-answersUsers" class="container-answersUsers" style="display: none;">
+                <div class="buttons-title">
+                    <label class="date-title">Fecha Inicio:</label>
+                    <input class="form-date__input" type="date" id="startDate">
+
+                    <label class="date-title">Fecha Fin:</label>
+                    <input class="form-date__input" type="date" id="endDate">
+
+                    <button id="submitDateRange" class="export-btn">Consultar</button>
+                </div>
                 <div class="buttons-title">
                     <h3 class="titleExport">Export table to:</h3>
                     <button class="export-btn" id="btnXlsx">Xlsx</button>
