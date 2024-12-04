@@ -368,10 +368,10 @@ img {
 
 /* Age Input Styling */
 .age-input {
-    width: 120px;
+    width: 94px;
     padding: 8px;
-    border: 2px solid #17345A;
-    border-radius: 6px;
+    border: none;
+    border-radius: 8px;
     font-size: 14px;
     background-color: rgba(255, 255, 255, 0.9);
     color: #17345A;
@@ -391,10 +391,11 @@ img {
 
 .availability-response {
     padding: 8px 16px;
+    width: 50px;
     background-color: #17345A;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.2s ease;

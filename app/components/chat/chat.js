@@ -137,7 +137,7 @@ export class GeneralChat extends HTMLElement {
                     stopWaitingDots();
 
                     messageCount++;
-                    if (messageCount % 4 === 0) {
+                    if (messageCount % 1 === 0) {
                         messageArea.innerHTML += `
                             <div class="container-iaMessage campuslands-promo">
                                 <div class="iaMessage promo-message">
@@ -148,18 +148,16 @@ export class GeneralChat extends HTMLElement {
                                     ¡Cupos limitados, no te quedes fuera!
                             
                                     <div class="interactive-options">
-                                        <p>Para continuar con el proceso, por favor indícanos:</p>
+                                        <p>Para continuar con el proceso, ¿Que edad tienes?:</p>
                                         <div class="input-group">
                                             <input type="number" id="campuslands-age" placeholder="Tu edad" class="age-input" min="1" max="99">
                                         </div>
                                         
-                                        <p>¿Tienes disponibilidad completa?</p>
+                                        <p>¿Tienes disponibilidad completa con nuestros horarios?</p>
                                         <div class="button-group">
                                             <button class="chat-button availability-response" value="si">Sí</button>
                                             <button class="chat-button availability-response" value="no">No</button>
                                         </div>
-                                        
-                                        <button class="chat-button" id="confirm-ageBtn">Confirmar</button>
                                     </div>
                                 </div>
                             </div>
@@ -294,59 +292,12 @@ export class GeneralChat extends HTMLElement {
     addAgeAndAviability() {
         const btnConfirmAgeAndAv = document.getElementById("confirm-ageBtn");
         const camperAge = document.getElementById("campuslands-age");
-    
-        btnConfirmAgeAndAv.addEventListener("click", async (e) => {
-            e.preventDefault();
-    
-            // Obtener el valor del botón seleccionado dinámicamente
-            const selectedButton = document.querySelector(".availability-response.selected");
-    
-            if (!selectedButton) {
-                alert("Por favor, selecciona una disponibilidad antes de confirmar.");
-                return;
-            }
-    
-            const availabilityValue = selectedButton.value;
-            console.log("Disponibilidad seleccionada al confirmar:", availabilityValue);
-    
-            // Validar la edad ingresada
-            const ageInput = camperAge.value;
-    
-            if (!ageInput || isNaN(ageInput) || ageInput <= 0) {
-                alert("Por favor, introduce una edad válida.");
-                return;
-            }
-    
-            // Preparar los datos para enviar
-            const datosAge = { age: parseInt(ageInput, 10) };
-            const datosAv = { availability: availabilityValue };
-    
-            try {
-                const responseAge = await postData(datosAge, "user/age");
-                if (responseAge.ok) {
-                    console.log("Edad enviada con éxito");
-                } else {
-                    console.error("Error al enviar la edad:", await responseAge.text());
-                }
-            } catch (error) {
-                console.error("Error en la solicitud de edad:", error);
-            }
-    
-            try {
-                const responseAv = await postData(datosAv, "user/availability");
-                if (responseAv.ok) {
-                    console.log("Disponibilidad enviada con éxito");
-                } else {
-                    console.error("Error al enviar la disponibilidad:", await responseAv.text());
-                }
-            } catch (error) {
-                console.error("Error en la solicitud de disponibilidad:", error);
-            }
-        });
+
     
         // Manejar el clic en los botones de disponibilidad
         document.querySelectorAll(".availability-response").forEach((button) => {
-            button.addEventListener("click", () => {
+            button.addEventListener("click", async(e) => {
+                e.preventDefault();
                 // Remover la clase "selected" de todos los botones
                 document.querySelectorAll(".availability-response").forEach((btn) => {
                     btn.classList.remove("selected");
@@ -355,6 +306,54 @@ export class GeneralChat extends HTMLElement {
                 // Agregar la clase "selected" al botón clicado
                 button.classList.add("selected");
                 console.log("Botón seleccionado:", button.value);
+                const selectedButton = document.querySelector(".availability-response.selected");
+    
+                if (!selectedButton) {
+                    alert("Por favor, selecciona una disponibilidad antes de confirmar.");
+                    return;
+                }
+        
+                const availabilityValue = selectedButton.value;
+                console.log("Disponibilidad seleccionada al confirmar:", availabilityValue);
+        
+                // Validar la edad ingresada
+                const ageInput = camperAge.value;
+        
+                if (!ageInput || isNaN(ageInput) || ageInput <= 0) {
+                    alert("Por favor, introduce una edad válida.");
+                    return;
+                }
+        
+                // Preparar los datos para enviar
+                const datosAge = { age: parseInt(ageInput, 10) };
+                const datosAv = { availability: availabilityValue };
+        
+                try {
+                    const responseAge = await postData(datosAge, "user/age");
+                    if (responseAge.ok) {
+                        console.log("Edad enviada con éxito");
+                    } else {
+                        console.error("Error al enviar la edad:", await responseAge.text());
+                    }
+                } catch (error) {
+                    console.error("Error en la solicitud de edad:", error);
+                }
+        
+                try {
+                    const responseAv = await postData(datosAv, "user/availability");
+                    if (responseAv.ok) {
+                        console.log("Disponibilidad enviada con éxito");
+                    } else {
+                        console.error("Error al enviar la disponibilidad:", await responseAv.text());
+                    }
+                } catch (error) {
+                    console.error("Error en la solicitud de disponibilidad:", error);
+                }
+
+                let messageArea = document.getElementById("conversation");
+                if (messageArea) {
+                    messageArea.innerHTML += '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por tu participación! Tu tiempo y aportes son esenciales para nuestro propósito en Campuslands. 🚀✨</div></div><br>';
+                }
             });
         });
     }
