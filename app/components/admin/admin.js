@@ -13,14 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const startDate = document.getElementById('startDate');
     const endDate = document.getElementById('endDate');
     const submitDateRange = document.getElementById('submitDateRange');
+    const userCity = document.getElementById("ciudad");
 
     let ADMIN_PASSWORD = "";
-    fetchPassword();
+    
+
 
     // Evento al hacer clic en el botón "Submit"
     submitPasswordButton.addEventListener('click', async () => {
         const enteredPassword = passwordInput.value;
 
+        fetchPassword();
         if (enteredPassword === ADMIN_PASSWORD) {
             errorMessage.style.display = 'none'; // Oculta el mensaje de error
             // dataTableContainer.style.display = 'block'; // Muestra la tabla
@@ -45,34 +48,62 @@ document.addEventListener('DOMContentLoaded', () => {
     submitDateRange.addEventListener('click', async() => {
         const enteredStartDate = startDate.value;
         const enteredEndDate = endDate.value;
+        const enteredCity = userCity.value;
 
-        if (!enteredStartDate || !enteredEndDate) {
+        if (!enteredEndDate || !enteredStartDate|| !enteredCity) {
+            console.error("Por favor, completa todos los campos requeridos.");
+            alert("Todos los campos son obligatorios.");
+            return;
+        }
+
+        if (!enteredStartDate || !enteredEndDate || !enteredCity) {
             alert('Por favor selecciona un rango de fechas válido.');
             return;
         }
-    
+
         try {
             // Obtener datos basados en el rango de fechas seleccionado
-            await fetchDataByDateRange(enteredStartDate, enteredEndDate);
-            await fetchUserDataByDateRange(enteredStartDate, enteredEndDate);
+            await fetchDataByDateRange(enteredStartDate, enteredEndDate, enteredCity);
+            await fetchUserDataByDateRange(enteredStartDate, enteredEndDate, enteredCity);
             dataTableContainer.style.display = 'block'; // Muestra la tabla
             userTableContainer.style.display= 'block';
         } catch (error) {
             console.error('Error al consultar datos:', error);
         }
+
+    
+        
        
     })
+    async function fetchPassword() {
+        const passwordEndpoint = "password/get"
+    
+        try {
+            const { data, error } = await getData(passwordEndpoint);
+    
+            if (error || !data) {
+                console.error('Error fetching data:', error);
+                return;
+            }
+    
+            ADMIN_PASSWORD = data.password;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 });
 
 
 
-async function fetchDataByDateRange(startDate, endDate) {
+
+
+async function fetchDataByDateRange(startDate, endDate, city) {
     const tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = ''; // Limpia cualquier dato existente
 
     try {
         // Llama al API para obtener datos
-        const { data, error } = await getData(`admin/messages/today?start=${startDate}&end=${endDate}`);
+        const { data, error } = await getData(`admin/messages/today?start=${startDate}&end=${endDate}&city=${city}`);
 
         if (error || !data) {
             console.error('Error fetching data:', error);
@@ -97,13 +128,14 @@ async function fetchDataByDateRange(startDate, endDate) {
     }
 }
 
-async function fetchUserDataByDateRange(startDate, endDate) {
+
+async function fetchUserDataByDateRange(startDate, endDate, city) {
     const tableBody = document.querySelector('#userTable tbody');
     tableBody.innerHTML = ''; // Limpia cualquier dato existente
 
     try {
         // Llama al API para obtener datos
-        const { data, error } = await getData(`admin/users/today?start=${startDate}&end=${endDate}`);
+        const { data, error } = await getData(`admin/users/today?start=${startDate}&end=${endDate}&city=${city}`);
 
         if (error || !data) {
             console.error('Error fetching data:', error);
@@ -127,22 +159,7 @@ async function fetchUserDataByDateRange(startDate, endDate) {
     }
 }
 
-async function fetchPassword() {
-    const passwordEndpoint = "password/get"
 
-    try {
-        const { data, error } = await getData(passwordEndpoint);
-
-        if (error || !data) {
-            console.error('Error fetching data:', error);
-            return;
-        }
-
-        ADMIN_PASSWORD = data.password;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
 
 
 
