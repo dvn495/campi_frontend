@@ -1,6 +1,4 @@
 import { postData } from "../../../API/API.js";
-
-
 export class GeneralChat extends HTMLElement {
     constructor() {
         super();
@@ -16,42 +14,46 @@ export class GeneralChat extends HTMLElement {
                 <button id="adminButton" class="admin-button">Admin</button>
             </div>
             <div class="container-chat">
+            
                 <div class="container-chat_conversation">
                     <!-- Modal de preguntas frecuentes -->
-                    <div id="faqModal" class="modal" style="display: none;">
+                    <div id="faqModal" class="modal" style="display: none;" >
                         <div class="modal-content">
                             <span id="closeModal" class="close">&times;</span>
                             <div id="questions-container">
-                                <button class="faq-button" id="pregunta1">¿Qué es Campuslands?</button>
-                                <button class="faq-button" id="pregunta2">¿Dónde están ubicados?</button>
-                                <button class="faq-button" id="pregunta3">¿Cuáles son los requisitos para ser parte de Campuslands?</button>
-                                <button class="faq-button" id="pregunta4">¿Cuánto cuesta ingresar?</button>
-                                <button class="faq-button" id="pregunta5">¿Cómo es el plan académico?</button>
-                                <button class="faq-button" id="pregunta6">¿Qué oportunidades laborales hay?</button>
+                                <button class="faq-button-question" id="pregunta1">¿Qué es Campuslands?</button>
+                                <button class="faq-button-question" id="pregunta2">¿Dónde están ubicados?</button>
+                                <button class="faq-button-question" id="pregunta3">¿Cuáles son los requisitos para ser parte de Campuslands?</button>
+                                <button class="faq-button-question" id="pregunta4">¿Cuánto cuesta ingresar?</button>
+                                <button class="faq-button-question" id="pregunta5">¿Cómo es el plan académico?</button>
+                                <button class="faq-button-question" id="pregunta6">¿Qué oportunidades laborales hay?</button>
                             </div>
                         </div>
                     </div>
+                    <!-- Botón para abrir el modal de preguntas frecuentes -->
+                    <div class="container-inscription-button">
+                            <a href="https://miniurl.cl/RegistroCampuslands" target="_blank" class="btnInscription">
+                                ¡¡Inscríbete ahora!!
+                            </a>
+                            <button id="faqButton" class="faq-button">Preguntas frecuentes</button>
+                    </div>
                     <br>
                     <div id="conversation" class="container-answers"> 
-                    <div class="container-inscription-button">
-                        <a href="https://miniurl.cl/RegistroCampuslands" target="_blank" class="btnInscription">
-                            ¡¡Inscríbete ahora!!
-                        </a>
-                    </div>
-                    <br class="br_questions">
-                    <!-- Botón para abrir el modal de preguntas frecuentes -->
-                    <button id="faqButton" class="faq-button">Preguntas frecuentes</button>
-                    <br>
-                    <div class="container-welcome">
-                        <div class="container-img">
-                            <img src="/img/campus (1).png">
-                        </div>
+                        
+                        <br class="br_questions">
+            
                         <br>
-                        <div class="welcome-text">
-                            ¡Hola y bienvenid@ a tu chat con Campuslands! Soy Campi, tu asistente personal, y estoy aquí para ayudarte a resolver todas tus dudas sobre Campuslands.
+                        <div class="container-welcome">
+                            <div class="container-img">
+                                <img src="/img/campus (1).png">
+                            </div>
+                            <br>
+                            <div class="welcome-text">
+                                ¡Hola y bienvenid@ a tu chat con Campuslands! Soy Campi, tu asistente personal, y estoy aquí para ayudarte a resolver todas tus dudas sobre Campuslands.
+                            </div>
                         </div>
-                    </div>
-                    <br>
+                        
+                        <br>
                         <div class="warning_time">¡Campi puede estár ocupado un momentito! 😊⏳ Dame unos segundos y vuelvo contigo con toda la energía. 🚀✨</div>
                         <br>
                     </div>
@@ -137,7 +139,7 @@ export class GeneralChat extends HTMLElement {
                     stopWaitingDots();
 
                     messageCount++;
-                    if (messageCount % 1 === 0) {
+                    if (messageCount === 1) {
                         messageArea.innerHTML += `
                             <div class="container-iaMessage campuslands-promo">
                                 <div class="iaMessage promo-message">
@@ -159,11 +161,45 @@ export class GeneralChat extends HTMLElement {
                                             <button class="chat-button availability-response" value="no">No</button>
                                         </div>
                                     </div>
+                                    <p>La respuesta a tu pregunta esta en la parte superior!!</p>
                                 </div>
                             </div>
                             `;
                         messageArea.scrollTop = messageArea.scrollHeight;
                         this.addAgeAndAviability();
+                    }
+                    if (messageCount % 4 === 0) {
+                        messageArea.innerHTML += `
+                            <div class="container-iaMessage campuslands-promo">
+                                <div class="iaMessage promo-message">
+                                    ¡Inscríbete en Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
+                                    <br>
+                                    Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a Campuslands</a>
+                                    <br>
+                                    ¡Cupos limitados, no te quedes fuera!
+                                </div>
+                            </div>
+                            `;
+                        messageArea.scrollTop = messageArea.scrollHeight;
+                    }
+                    if (messageCount === 3) {
+                        messageArea.innerHTML += `
+                            <div class="container-iaMessage campuslands-promo">
+                                <div class="iaMessage promo-message">
+                                    ¿Quieres que te contactemos? Si es asi indicanos de que forma:
+                                    <div class="call-promo">
+                                        <div class="call-promo__contact left">
+                                            <button class="btnContactPromo" value="mensaje">Mensaje</button>
+                                        </div>
+                                        <div class="call-promo__contact right">
+                                            <button class="btnContactPromo" value="llamada">Llamada</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                        messageArea.scrollTop = messageArea.scrollHeight;
+                        this.addCallOrMessage();
                     }
                 } else {
                     console.error("Elemento con ID 'conversation' no encontrado.");
@@ -216,23 +252,26 @@ export class GeneralChat extends HTMLElement {
 
     addEventListeners() {
         const faqButton = document.getElementById("faqButton");
-        const faqModal = document.getElementById("faqModal");
+        
         const closeModal = document.getElementById("closeModal");
     
         // Abre el modal cuando se hace clic en el botón de preguntas frecuentes
         faqButton.onclick = () => {
-            faqModal.style.display = "block";
+            const faqModal = document.getElementById("faqModal");
+            faqModal.style.display="block"
         };
     
         // Cierra el modal cuando se hace clic en la "x"
         closeModal.onclick = () => {
-            faqModal.style.display = "none";
+            const faqModal = document.getElementById("faqModal");
+            faqModal.style.display="none"
         };
     
         // Cierra el modal cuando se hace clic fuera del contenido del modal
         window.onclick = (event) => {
+            const faqModal = document.getElementById("faqModal");
             if (event.target == faqModal) {
-                faqModal.style.display = "none";
+                faqModal.style.display="none"
             }
         };
     
@@ -352,7 +391,67 @@ export class GeneralChat extends HTMLElement {
 
                 let messageArea = document.getElementById("conversation");
                 if (messageArea) {
-                    messageArea.innerHTML += '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por tu participación! Tu tiempo y aportes son esenciales para nuestro propósito en Campuslands. 🚀✨</div></div><br>';
+                    messageArea.innerHTML += '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por tu participación! Cada paso que das nos acerca a transformar vidas y construir un futuro mejor en Campuslands. 🚀✨ Si tienes más preguntas o necesitas orientación en tu proceso, no dudes en escribirme. ¡Estoy aquí para ayudarte! 🌟 ¿Qué te gustaría saber o explorar a continuación?</div></div><br>';
+                    messageArea.scrollTop = messageArea.scrollHeight;
+                }
+            });
+        });
+    }
+
+    addCallOrMessage() {
+        // Ensure buttons are selected correctly using the class selector
+        document.querySelectorAll(".btnContactPromo").forEach((button) => {
+            button.addEventListener("click", async (e) => {
+                e.preventDefault();
+    
+                // Remove the "selected" class from all buttons
+                document.querySelectorAll(".btnContactPromo").forEach((btn) => {
+                    btn.classList.remove("selected");
+                });
+    
+                // Add the "selected" class to the clicked button
+                button.classList.add("selected");
+                console.log("Button selected:", button.value);
+    
+                // Get the selected button
+                const selectedButton = document.querySelector(".btnContactPromo.selected");
+                if (!selectedButton) {
+                    alert("Por favor, selecciona una forma de contacto antes de continuar.");
+                    return;
+                }
+    
+                const contactValue = selectedButton.value;
+                console.log("Selected contact method:", contactValue);
+    
+                // Prepare data to send
+                const contactData = { contact_way: contactValue };
+    
+                // Send data to the API
+                try {
+                    const response = await postData(contactData, "user/contact");
+                    if (response.ok) {
+                        console.log("Contact method sent successfully");
+                    } else {
+                        console.error("Error sending contact method:", await response.text());
+                    }
+                } catch (error) {
+                    console.error("Error in contact method request:", error);
+                }
+    
+                // Display confirmation message
+                let messageArea = document.getElementById("conversation");
+                if (messageArea) {
+                    messageArea.innerHTML += `
+                        <br>
+                        <div class="container-iaMessage">
+                            <div class="iaMessage">
+                                ¡Gracias por tu participación! Cada paso que das nos acerca a transformar vidas y construir un futuro mejor en Campuslands. 🚀✨ 
+                                Si tienes más preguntas o necesitas orientación en tu proceso, no dudes en escribirme. ¡Estoy aquí para ayudarte! 🌟 
+                                ¿Qué te gustaría saber o explorar a continuación?
+                            </div>
+                        </div>
+                        <br>`;
+                    messageArea.scrollTop = messageArea.scrollHeight;
                 }
             });
         });

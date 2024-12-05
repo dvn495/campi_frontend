@@ -16,11 +16,36 @@
 
 
 * {
-    scrollbar-width: thin;
     font-family:  "Poppins", sans-serif;
 }
 
-
+* {
+    --sb-track-color: var(--lightGrey);
+    --sb-thumb-color: rgba(245, 245, 245, 0.308);
+    --sb-size: 5px;
+  }
+  
+  *::-webkit-scrollbar {
+    width: var(--sb-size)
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 3px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 5px;
+    
+  }
+  
+  @supports not selector(::-webkit-scrollbar) {
+    * {
+      scrollbar-color: var(--sb-thumb-color)
+                       var(--sb-track-color);
+    }
+  }
 body {
     background-color: var(--bgDark);
     background-repeat: no-repeat;
@@ -114,7 +139,6 @@ img {
     align-items:flex-start;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-color: var(--bgDark);
     max-height: 600px;
     gap: 25px;
     
@@ -295,7 +319,6 @@ img {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-color: var(--bgDark);
 }
 
 .container-answers{
@@ -307,7 +330,6 @@ img {
     overflow-y: auto;
     overflow-x: hidden;
     align-items: flex-start;
-    scrollbar-color: var(--bgDark);
 }
 
 .container-userMessage{
@@ -323,14 +345,16 @@ img {
     display: inline-block;     
     max-width: 50%;             
     padding: 10px;
-    background-color: #75A0C9;   
-    color: rgb(20, 20, 20);                
+    background-color: var(--bgDark);   
+    color:whitesmoke;    
+    font-weight: bold;            
     border-radius: 10px;         
     border-top-right-radius: 0;  
     word-wrap: break-word;      
     text-align: left;           
     font-size: 14px;
     font-size:large;
+    margin-right: 10px;
 }
 
 .conatiner-iaMessage{
@@ -345,8 +369,8 @@ img {
 .iaMessage {
     display: inline-block;     
     max-width: 50%;             
-    padding: 10px;
-    background-color: #75A0C9;   
+    padding: 15px;
+    background-color: whitesmoke;   
     color: rgb(20, 20, 20);                
     border-radius: 10px;         
     border-top-left-radius: 0;  
@@ -368,7 +392,7 @@ img {
 
 /* Age Input Styling */
 .age-input {
-    width: 94px;
+    width: 104px;
     padding: 8px;
     border: none;
     border-radius: 8px;
@@ -391,7 +415,7 @@ img {
 
 .availability-response {
     padding: 8px 16px;
-    width: 50px;
+    width: 55px;
     background-color: #17345A;
     color: white;
     border: none;
@@ -405,33 +429,42 @@ img {
     background-color: #0077FF;
 }
 
-#confirm-ageBtn {
+.call-promo {
+    display: flex;
     width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    background-color: #17345A;
-    color: white;
+    margin-top: 5px;
+    border-top: 1px solid var(--lightGrey);
+    align-items: center;
+    justify-content: center;
+}
+
+.call-promo__contact {
+    flex: 1;
+}
+
+.btnContactPromo {
+    width: 100%;
+    background: none;
+    color: var(--bgDark);
     border: none;
-    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-weight: bold;
+    text-transform: capitalize; 
+    text-align: center;
+    margin-top: 3px;
+
 }
 
-#confirm-ageBtn:hover {
-    background-color: #0077FF;
-}
 
-/* Selected state for availability buttons */
-.availability-response.selected {
-    background-color: #0077FF;
+.left{
+    border-right: 1px solid var(--lightGrey);
 }
-
 
 /*USER MESSAGE*/
 
 
 .container-chat_message {
-    background-color: var(--inputBg);
+    background-color: whitesmoke;
     border-radius: 25px;
     width: 95%;
     height: 45px;
@@ -487,6 +520,7 @@ button#btnSendMessage {
 
 /* WELCOME*/
 .container-welcome{
+    margin-top: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -572,12 +606,14 @@ button#btnSendMessage {
 
 /* Estilo de los botones de preguntas frecuentes */
 .faq-button {
-    margin-top: 5px;
+    margin: 5px;
     font-weight: bold;
-    background-color: transparent;
+    background-color: var();
     color: var(--bgDark);
     transition: all 0.2s ease-out;
-    width: 100%;
+    width: 180px;
+    border-radius: 25px;
+    height: 25px;
 }   
 
 .br_questions{
@@ -590,6 +626,23 @@ button#btnSendMessage {
 
 /* Efecto de clic en los botones */
 .faq-button:active {
+    transform: scale(1);
+}
+
+.faq-button-question {
+    margin-top: 5px;
+    font-weight: bold;
+    background-color: transparent;
+    color: var(--bgDark);
+    transition: all 0.2s ease-out;
+}   
+
+.faq-button-question:hover{
+    transform: scale(1.1);
+}
+
+/* Efecto de clic en los botones */
+.faq-button-question:active {
     transform: scale(1);
 }
 
@@ -625,8 +678,12 @@ button#btnSendMessage {
 
 /* Container for the inscription button */
 .container-inscription-button {
+    position: absolute;
+    right: 0%;
     width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center; /* Centers the button */
 }
 
@@ -902,7 +959,7 @@ a{
         width: 95%; 
         left: 50%;
         transform: translateX(-50%);
-        background-color: var(--inputBg); 
+        background-color: whitesmoke;
         border-radius: 10px; 
         box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);  
     }
@@ -934,7 +991,7 @@ a{
     }
 
     .container-welcome{
-        margin-top: 40px;
+        margin-top: 60px;
     }
 
     .faq-answer {
@@ -944,6 +1001,7 @@ a{
     .welcome-text {
         width: 100%;
         font-size: 14px; 
+        margin-bottom: 8px;
     }
 
     img {
@@ -956,7 +1014,17 @@ a{
     }
 
     .faq-button{
+        background-color: var(--lightGrey);
+        width: 150px;
         font-size: 12px;
+        padding: 6px;
+        border-radius: 25px;
+    }
+
+    .faq-button-question{
+        font-size: 12px;
+        padding: 10px;
+        border-radius: 25px;
         margin: 5px;
     }
 
@@ -1029,7 +1097,7 @@ a{
     }
 
     #questions-container {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
         gap: 5px; 
         padding: 5px; 
     }
@@ -1050,3 +1118,8 @@ a{
     }
 }
 
+@media (max-height: 500px){
+    .container-chat_conversation{
+        margin-bottom: 50px;
+    }
+}

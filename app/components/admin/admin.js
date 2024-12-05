@@ -152,6 +152,7 @@ async function fetchUserDataByDateRange(startDate, endDate, city) {
                 <td>${user.telefono}</td>
                 <td>${user.age}</td>
                 <td>${user.availability}</td>
+                <td>${user.contact_way}</td>
             `;
 
             tableBody.appendChild(row);
