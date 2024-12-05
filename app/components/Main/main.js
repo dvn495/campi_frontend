@@ -33,7 +33,10 @@ btnEnterChat.addEventListener("click", async (e) => {
     datos.id = 0;
     datos.username = userName.value;
     datos.telefono = userPhone;
+    datos.city = userCity.value;
     datos.role = "USER";
+
+    console.log(datos)
 
 
     try {
