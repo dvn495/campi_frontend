@@ -442,18 +442,35 @@ export class BogotaChat extends HTMLElement {
     
                 // Display confirmation message
                 let messageArea = document.getElementById("conversation");
-                if (messageArea) {
-                    messageArea.innerHTML += `
-                        <br>
-                        <div class="container-iaMessage">
-                            <div class="iaMessage">
-                                ¡Gracias por tu participación! Cada paso que das nos acerca a transformar vidas y construir un futuro mejor en Campuslands. 🚀✨ 
-                                Si tienes más preguntas o necesitas orientación en tu proceso, no dudes en escribirme. ¡Estoy aquí para ayudarte! 🌟 
-                                ¿Qué te gustaría saber o explorar a continuación?
+                if(contactValue === "llamada"){
+                    // Display confirmation message
+                
+                    if (messageArea) {
+                        messageArea.innerHTML += `
+                            <br>
+                            <div class="container-iaMessage">
+                                <div class="iaMessage">
+                                    ¡Gracias por tu interés en Campuslands! 📞✨ Pronto uno de nuestros asesores se pondrá en contacto contigo vía telefónica para resolver tus dudas y acompañarte en este proceso. 
+                                    ¡Prepárate para esta llamada, será el inicio de algo increíble! 🚀
+                                </div>
                             </div>
-                        </div>
-                        <br>`;
-                    messageArea.scrollTop = messageArea.scrollHeight;
+                            <br>`;
+                        messageArea.scrollTop = messageArea.scrollHeight;
+                    }
+
+                } else if (contactValue ==="mensaje"){
+                    if (messageArea) {
+                        messageArea.innerHTML += `
+                            <br>
+                            <div class="container-iaMessage">
+                                <div class="iaMessage">
+                                    ¡Gracias por escribirnos! ✉️✨ En breve, recibirás un mensaje con toda la información que necesitas para iniciar tu camino en Campuslands. 
+                                    Si tienes más preguntas, no dudes en responder. ¡Estamos aquí para ayudarte en cada paso! 🌟
+                                </div>
+                            </div>
+                            <br>`;
+                        messageArea.scrollTop = messageArea.scrollHeight;
+                    }
                 }
             });
         });

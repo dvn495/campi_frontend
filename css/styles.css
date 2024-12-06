@@ -215,6 +215,12 @@ img {
     transform: translateY(-2px);
 }
 
+.landing{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
 #adminPassword {
     background-color: #1A2226;
     border: none;

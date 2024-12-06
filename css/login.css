@@ -182,3 +182,227 @@ select.form-control option {
     width: auto;
 }
 
+
+/*admin*/
+
+.admin-button{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    appearance: none;
+    color: #45bbd6;
+    font-family: “Helvetica”, arial, sans-serif;
+    font-size: 15px;
+    border:2px solid #45bbd6;
+    background:transparent;
+    border-radius: 8px;
+    padding: 4px;
+    display: inline-block;
+    transition: all 0.3s ease-out;
+    
+}
+
+.admin-button:hover {
+    background: #45bbd6;
+    color: #1A2226;
+    transform: translateY(-2px);
+}
+
+/* Admin Panel Styles */
+.admin-container {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.adminSectionPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #1A2226;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+}
+
+.containerTables{
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 600px;
+    gap: 25px;
+    
+}
+.admin-title {
+    color: #ECF0F5;
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.date-title{
+    color: #ECF0F5;
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.form-date__input {
+    appearance: none;
+    color: #45bbd6;
+    font-family: “Helvetica”, arial, sans-serif;
+    font-size: 15px;
+    border:2px solid #45bbd6;
+    background:#222D32;
+    border-radius: 8px;
+    padding: 4px;
+    display: inline-block;
+    visibility: visible;
+    width: 140px;
+    transition: all 0.3s ease-out;
+}
+
+.form-date__input:hover {
+    background: #45bbd6;
+    color: #1A2226;
+    transform: translateY(-2px);
+}
+
+
+.form-date__input:focus {
+    background: #45bbd6;
+    color: #1A2226;
+    border-color: #80BDFF;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.admin{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.adminControl{
+    appearance: none;
+    padding: 5px;
+    color: #45bbd6;
+    border-radius: 8px;
+    font-family: “Helvetica”, arial, sans-serif;
+    font-size: 15px;
+    border:2px solid #45bbd6;
+    background:#222D32;
+    transition: all 0.3s ease-out;
+}
+
+.adminControl:hover{
+    cursor: pointer;
+    background: #45bbd6;
+    color: #1A2226;
+    transform: translateY(-2px);
+}
+
+.landing{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#adminPassword {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #45bbd6;
+    color: #ECF0F5;
+    font-weight: bold;
+    padding: 10px 15px;
+    width: 300px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+#adminPassword:focus {
+    border-bottom-color: #27EF9F;
+    outline: none;
+}
+
+#submitPassword {
+    border: 2px solid #0DB8DE;
+    color: #0DB8DE;
+    background: transparent;
+    border-radius: 4px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+#submitPassword:hover {
+    background-color: #0DB8DE;
+    color: #FFF;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th, .data-table td {
+    padding: 12px;
+    text-align: left;
+    color: #ECF0F5;
+    border-bottom: 1px solid #45bbd6;
+}
+
+.data-table th {
+    background-color: #222D32;
+    font-weight: bold;
+}
+
+.buttons-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #222D32;
+    border-radius: 8px;
+}
+
+.titleExport {
+    color: #ECF0F5;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin: 0;
+    min-width: max-content;
+}
+
+.export-btn {
+    background: transparent;
+    border: 2px solid #45bbd6;
+    color: #45bbd6;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+    background: #45bbd6;
+    color: #1A2226;
+    transform: translateY(-2px);
+}
+
+.export-btn:active {
+    transform: translateY(0);
+}

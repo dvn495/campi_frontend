@@ -26,6 +26,25 @@
         }
     };
 
+    const getDataLanding = async () => {
+        try {
+            const response = await fetch(
+                "https://chatcampuslands.com:8443/landingpageapp/register"
+            );
+    
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP error! status: ${response.status} - ${response.statusText}`
+                );
+            } 
+    
+            const data = await response.json();
+            return {data, response}
+        } catch (error) {
+            console.error("Error during fetch:", error.message);
+        }
+    };
+
     const getElementData = async(endpoint, id) => {
         try {
             return await fetch(`${URL_API}/${endpoint}/${id}`, {
@@ -80,5 +99,6 @@
         authData,
         getData,
         postData,
-        getElementData
+        getElementData,
+        getDataLanding
     };

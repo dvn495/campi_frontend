@@ -1,6 +1,7 @@
-import { getData } from '../../../API/API.js'; // Ruta relativa de tu archivo API
+import { getData, getDataLanding, authData } from '../../../API/API.js'; // Ruta relativa de tu archivo API
 
 document.addEventListener('DOMContentLoaded', () => {
+
     const submitPasswordButton = document.getElementById('submitPassword');
     const passwordInput = document.getElementById('adminPassword');
     const dataTableContainer = document.getElementById('dataTableContainer');
@@ -10,20 +11,57 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnXlsx = document.querySelector('#btnXlsx');
     const btnXls = document.querySelector('#btnXls');
     const btnCsv = document.querySelector('#btnCsv');
+    const btnXlsxLanding = document.querySelector('#btnXlsxLanding');
+    const btnXlsLanding = document.querySelector('#btnXlsLanding');
+    const btnCsvLanding = document.querySelector('#btnCsvLanding');
     const startDate = document.getElementById('startDate');
     const endDate = document.getElementById('endDate');
     const submitDateRange = document.getElementById('submitDateRange');
     const userCity = document.getElementById("ciudad");
-
-    let ADMIN_PASSWORD = "";
+    const landingInformButton = document.getElementById('landingInform');
+    const containerLanding = document.getElementById('container-landing');
+    const landingTableContainer = document.getElementById('landingTableContainer');
+    const returnToMainButton = document.getElementById('returnToMainButton');
     
 
+    let ADMIN_PASSWORD;
 
+    let datos= {}
+
+    // Inicializa la contraseña después de cargar el DOM
+    fetchPassword().then(password => {
+        ADMIN_PASSWORD = password;
+    });
+    
+
+    
     // Evento al hacer clic en el botón "Submit"
     submitPasswordButton.addEventListener('click', async () => {
         const enteredPassword = passwordInput.value;
 
-        fetchPassword();
+        const endpointLogin ="auth/login";
+
+        datos.id = 0;
+        datos.username = enteredPassword;
+        datos.telefono = 111906;
+        datos.role = "ADMIN";
+
+        try {
+            console.log('Intentando iniciar sesión...');
+            const responseLogin = await authData(datos, endpointLogin);
+            if (responseLogin.ok) {
+                console.log('Login exitoso! Redirigiendo...');
+                const data = await responseLogin.json();
+                localStorage.setItem('authToken', data.token);
+            } else {
+                console.error('Error en el login:', await responseLogin.text());
+                return;
+            }
+        } catch (loginError) {
+            console.error('Error durante el login:', loginError);
+            return;
+        }
+
         if (enteredPassword === ADMIN_PASSWORD) {
             errorMessage.style.display = 'none'; // Oculta el mensaje de error
             // dataTableContainer.style.display = 'block'; // Muestra la tabla
@@ -40,8 +78,33 @@ document.addEventListener('DOMContentLoaded', () => {
             btnCsv.onclick = () =>{
                 exportData('cvs', dataTableContainer, dataUserContainer);
             }
+            btnXlsxLanding.onclick = () => {
+                exportLandingData('xlsx');
+            };
+        
+            btnXlsLanding.onclick = () => {
+                exportLandingData('xls');
+            };
+        
+            btnCsvLanding.onclick = () => {
+                exportLandingData('csv');
+            };
         } else {
             errorMessage.style.display = 'block'; // Muestra el mensaje de error
+        }
+    });
+
+    landingInformButton.addEventListener('click', async () => {
+        // Hide the main container and show landing container
+        containerAnswersData.style.display = 'none';
+        containerLanding.style.display = 'block';
+        
+        try {
+            // Fetch landing data immediately when switching to this view
+            await fetchLandingData();
+            landingTableContainer.style.display = 'block';
+        } catch (error) {
+            console.error('Error fetching landing data:', error);
         }
     });
 
@@ -75,23 +138,26 @@ document.addEventListener('DOMContentLoaded', () => {
         
        
     })
-    async function fetchPassword() {
-        const passwordEndpoint = "password/get"
     
-        try {
-            const { data, error } = await getData(passwordEndpoint);
-    
-            if (error || !data) {
-                console.error('Error fetching data:', error);
-                return;
-            }
-    
-            ADMIN_PASSWORD = data.password;
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
 });
+
+async function fetchPassword() {
+    const passwordEndpoint = "password/get";
+
+    try {
+        const { data, error } = await getData(passwordEndpoint);
+
+        if (error || !data) {
+            console.error('Error fetching data:', error);
+            return null; // Devuelve null si hay un error
+        }
+
+        return data.password; // Retorna la contraseña
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null; // Devuelve null en caso de error
+    }
+}
 
 
 
@@ -181,4 +247,71 @@ function exportData(type, dataTableContainer, dataUserContainer){
 
 
     XLSX.writeFile(wb, fileName);
+}
+
+
+// Function to fetch landing data from the API
+async function fetchLandingData() {
+    const tableBody = document.querySelector('#dataTableLanding tbody');
+    tableBody.innerHTML = ''; // Clear existing data
+
+    try {
+        // Call API to get landing data
+        const { data, error } = await getDataLanding();
+
+        if (error || !data) {
+            console.error('Error fetching landing data:', error);
+            return;
+        }
+
+        // Iterate over the data and create rows dynamically
+        data.forEach((entry) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${entry.id}</td>
+                <td>${entry.firstName}</td>
+                <td>${entry.lastName}</td>
+                <td>${entry.email}</td>
+                <td>${entry.phone}</td>
+                <td>${entry.company}</td>
+                <td>${entry.position}</td>
+                <td>${entry.date_creation}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching landing data:', error);
+    }
+}
+
+// Function to export landing data
+function exportLandingData(type) {
+    const fileName = `landing-report.${type}`;
+    const wb = XLSX.utils.book_new();
+
+    // Get the landing table and convert it to a worksheet
+    const landingTable = document.getElementById('landingTableContainer');
+    const landingSheet = XLSX.utils.table_to_sheet(landingTable);
+    XLSX.utils.book_append_sheet(wb, landingSheet, "Landing Data");
+
+    // Write the file
+    XLSX.writeFile(wb, fileName);
+}
+
+// Add a function to return to the main view
+if (returnToMainButton) {
+    returnToMainButton.addEventListener('click', () => {
+        const containerLanding = document.getElementById('container-landing');
+        const containerAnswersData = document.getElementById('container-answersUsers');
+        
+        // Cambia la visibilidad de los contenedores
+        if (containerLanding && containerAnswersData) {
+            containerLanding.style.display = 'none';
+            containerAnswersData.style.display = 'block';
+        } else {
+            console.error("No se encontraron los contenedores.");
+        }
+    });
+} else {
+    console.error("No se encontró el botón 'returnToMainButton'.");
 }

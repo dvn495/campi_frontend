@@ -16,6 +16,7 @@
                 <button id="submitPassword">Submit</button>
             </div>
             <div id="container-answersUsers" class="container-answersUsers" style="display: none;">
+                <button id="landingInform" class="export-btn landing">LANDING INFORM</button>
                 <div class="buttons-title">
                     <label class="date-title">Fecha Inicio:</label>
                     <input class="form-date__input" type="date" id="startDate">
@@ -23,9 +24,9 @@
                     <label class="date-title">Fecha Fin:</label>
                     <input class="form-date__input" type="date" id="endDate">
 
-                    <div class="form-group">
+                    <div class="form-group admin">
                         <label class="date-title">Ciudad</label>
-                        <select id="ciudad" class="form-control">
+                        <select id="ciudad" class="form-control adminControl">
                             <option value=""> Seleccione su ciudad </option>
                             <option value="Bucaramanga">Bucaramanga</option>
                             <option value="Bogota">Bogotá</option>
@@ -75,6 +76,40 @@
                         </table>
                     </div>
                 </div>
+                
+            </div>
+            <div id="container-landing" class="container-answersUsers" style="display: none;">
+                <div class="buttons-title">
+                    <h3 class="titleExport">Export table to:</h3>
+                    <button class="export-btn" id="btnXlsxLanding">Xlsx</button>
+                    <button class="export-btn" id="btnXlsLanding">Xls</button>
+                    <button class="export-btn" id="btnCsvLanding">CSV</button>
+                </div>
+                <div class="containerTables">
+                    <div id="landingTableContainer" style="display: none;">
+                    
+                        <table class="data-table" id="dataTableLanding">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>email</th>
+                                    <th>numero</th>
+                                    <th>compañia</th>
+                                    <th>posicion</th>
+                                    <th>Fecha creacion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Datos dinámicos -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Add this inside your container-landing div -->
+                <button id="returnToMainButton" class="export-btn">Return to Main View</button>
+
                 
             </div>
             

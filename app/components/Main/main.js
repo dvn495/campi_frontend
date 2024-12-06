@@ -12,6 +12,12 @@ console.log("userPhone:", userPhone);
 const endpointLogin = "auth/login";
 const endpointRegister = "auth/register";
 
+
+const adminButton = document.getElementById("adminButton");
+        adminButton.onclick = () => {
+            window.location.href = "/View/admin.html"; // Redirige a la página de administración
+        };
+
 // Escucha el botón de ingreso
 btnEnterChat.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -53,7 +59,6 @@ btnEnterChat.addEventListener("click", async (e) => {
     } catch (loginError) {
         console.error('Error durante el login:', loginError);
     }
-    // Intenta registrar al usuario primero
     try {
         const responseCreate = await authData(datos, endpointRegister);
         if (responseCreate.ok) {
