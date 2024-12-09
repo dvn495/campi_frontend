@@ -12,9 +12,7 @@ export class BogotaChat extends HTMLElement {
     render() {
         this.innerHTML = /* html */ `
         <section class="container-box">
-            <div class="admin-section">
-                <button id="adminButton" class="admin-button">Admin</button>
-            </div>
+            
             <div class="container-chat">
             
                 <div class="container-chat_conversation">
@@ -112,6 +110,20 @@ export class BogotaChat extends HTMLElement {
         </section>
         `;
     }
+    configureMarkdown() {
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            sanitize: false,
+            highlight: function (code, lang) {
+                return code;
+            },
+        });
+    }
+
+    renderMarkdownMessage(container, message) {
+        container.innerHTML += `<div class="container-iaMessage"><div class="iaMessage">${marked.parse(message)}</div></div><br>`;
+    }
 
     webSocket() {
         let socket;
@@ -136,7 +148,7 @@ export class BogotaChat extends HTMLElement {
             socket.onmessage = (event) => {
                 let messageArea = document.getElementById("conversation");
                 if (messageArea) {
-                    messageArea.innerHTML += '<div class="container-iaMessage"><div class="iaMessage">' + event.data + '</div></div><br>';
+                    this.renderMarkdownMessage(messageArea, event.data);
                     messageArea.scrollTop = messageArea.scrollHeight;
                     stopWaitingDots();
 
@@ -145,25 +157,19 @@ export class BogotaChat extends HTMLElement {
                         messageArea.innerHTML += `
                             <div class="container-iaMessage campuslands-promo">
                                 <div class="iaMessage promo-message">
-                                    ¡Inscríbete en Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
-                                    <br>
-                                    Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a Campuslands</a>
-                                    <br>
-                                    ¡Cupos limitados, no te quedes fuera!
-                            
-                                    <div class="interactive-options">
-                                        <p>Para continuar con el proceso, ¿Que edad tienes?:</p>
+                                        <p style="margin-top: 0;">Para continuar con el proceso, ¿Que edad tienes?</p>
                                         <div class="input-group">
                                             <input type="number" id="campuslands-age" placeholder="Tu edad" class="age-input" min="1" max="99">
                                         </div>
-                                        
-                                        <p>¿Tienes disponibilidad completa con nuestros horarios?</p>
-                                        <div class="button-group">
-                                            <button class="chat-button availability-response" value="si">Sí</button>
-                                            <button class="chat-button availability-response" value="no">No</button>
+                                        <p>¿Puedes dedicarte 8 horas diarias de manera presencial durante 10 meses?</p>
+                                        <div class="call-promo">
+                                            <div class="call-promo__contact left">
+                                                <button class="availability-response btnContactPromo" value="si">Sí</button>
+                                            </div>
+                                            <div class="call-promo__contact right">
+                                                <button class="availability-response btnContactPromo" value="no">No</button>
+                                            <div>
                                         </div>
-                                    </div>
-                                    <p>La respuesta a tu pregunta esta en la parte superior!!</p>
                                 </div>
                             </div>
                             `;
@@ -292,10 +298,7 @@ export class BogotaChat extends HTMLElement {
             button.addEventListener('click', () => this.handleQuestionClick(q.id));
         });
     
-        const adminButton = document.getElementById("adminButton");
-        adminButton.onclick = () => {
-            window.location.href = "admin.html"; // Redirige a la página de administración
-        };
+        
         
     }
     
@@ -393,7 +396,7 @@ export class BogotaChat extends HTMLElement {
 
                 let messageArea = document.getElementById("conversation");
                 if (messageArea) {
-                    messageArea.innerHTML += '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por tu participación! Cada paso que das nos acerca a transformar vidas y construir un futuro mejor en Campuslands. 🚀✨ Si tienes más preguntas o necesitas orientación en tu proceso, no dudes en escribirme. ¡Estoy aquí para ayudarte! 🌟 ¿Qué te gustaría saber o explorar a continuación?</div></div><br>';
+                    messageArea.innerHTML += '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por participar! 🚀✨ ¿En qué más puedo ayudarte? 🌟</div></div><br>';
                     messageArea.scrollTop = messageArea.scrollHeight;
                 }
             });
@@ -439,8 +442,6 @@ export class BogotaChat extends HTMLElement {
                 } catch (error) {
                     console.error("Error in contact method request:", error);
                 }
-    
-                // Display confirmation message
                 let messageArea = document.getElementById("conversation");
                 if(contactValue === "llamada"){
                     // Display confirmation message
@@ -472,6 +473,8 @@ export class BogotaChat extends HTMLElement {
                         messageArea.scrollTop = messageArea.scrollHeight;
                     }
                 }
+    
+                
             });
         });
     }

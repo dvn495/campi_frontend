@@ -17,11 +17,12 @@
 
 * {
     font-family:  "Poppins", sans-serif;
+    scrollbar-color: transparent;
 }
 
 * {
-    --sb-track-color: var(--lightGrey);
-    --sb-thumb-color: rgba(245, 245, 245, 0.308);
+    --sb-track-color: transparent;
+    --sb-thumb-color: transparent;
     --sb-size: 5px;
   }
   
@@ -431,9 +432,6 @@ img {
     transition: background-color 0.2s ease;
 }
 
-.availability-response:hover {
-    background-color: #0077FF;
-}
 
 .call-promo {
     display: flex;
@@ -465,6 +463,8 @@ img {
 .left{
     border-right: 1px solid var(--lightGrey);
 }
+
+
 
 /*USER MESSAGE*/
 
@@ -614,7 +614,7 @@ button#btnSendMessage {
 .faq-button {
     margin: 5px;
     font-weight: bold;
-    background-color: var();
+    background-color: var(--lightGrey);
     color: var(--bgDark);
     transition: all 0.2s ease-out;
     width: 180px;
@@ -1008,6 +1008,7 @@ a{
         width: 100%;
         font-size: 14px; 
         margin-bottom: 8px;
+
     }
 
     img {
@@ -1045,6 +1046,8 @@ a{
     .warning_time{
         font-size: 13px;
         padding-bottom: 5px;
+        opacity: 0.5;
+        font-weight: bold;
     }
 
     .wrapper{
@@ -1100,6 +1103,7 @@ a{
         width: 100%;
         height: 100%;
         border-radius: 0;
+        background: url(/img/12.svg);
     }
 
     #questions-container {
