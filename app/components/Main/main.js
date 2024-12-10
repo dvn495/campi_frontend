@@ -42,6 +42,14 @@ btnEnterChat.addEventListener("click", async (e) => {
     datos.city = userCity.value;
     datos.role = "USER";
 
+    if (userName.value) {
+        localStorage.setItem("nombreUsuario", userName.value);
+        console.log("¡Registro exitoso! Ahora puedes ir al chat.");
+    } else {
+        alert("Por favor, ingresa tu nombre.");
+    }
+
+
     console.log(datos)
 
 

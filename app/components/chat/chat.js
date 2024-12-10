@@ -465,12 +465,31 @@ export class GeneralChat extends HTMLElement {
 
                 } else if (contactValue ==="mensaje"){
                     if (messageArea) {
+                        const nombreUsuario = localStorage.getItem("nombreUsuario");
+
+                        if (!nombreUsuario) {
+                            nombreUsuario = "Usuario"; // Or use a placeholder like "Usuario desconocido"
+                        }
+                    
+                        // Properly encode the message for URL usage
+                        const whatsappText = encodeURIComponent(`
+                            ¡Hola! Mi nombre es: ${nombreUsuario}. Estoy interesado en conocer más sobre Campuslands, su modelo educativo y cómo puedo ser parte de esta experiencia transformadora. 😊
+                        `);
+                        
                         messageArea.innerHTML += `
                             <br>
                             <div class="container-iaMessage">
                                 <div class="iaMessage">
-                                    ¡Gracias por escribirnos! ✉️✨ En breve, recibirás un mensaje con toda la información que necesitas para iniciar tu camino en Campuslands. 
-                                    Si tienes más preguntas, no dudes en responder. ¡Estamos aquí para ayudarte en cada paso! 🌟
+                                    Gracias por escribirnos! ✉️✨ En breve, recibirás un mensaje con toda la información que necesitas para iniciar tu camino en Campuslands.  
+                                    Si tienes más preguntas, no dudes en responder. ¡Estamos aquí para ayudarte en cada paso! 🌟  
+                                    
+                                    <a href="https://wa.me/573177709345?text=${whatsappText}" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        class="whatsapp-link">
+                                        Chatea con nosotros en WhatsApp 📱✨
+                                    </a>
+                                    
                                 </div>
                             </div>
                             <br>`;
