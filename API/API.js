@@ -1,104 +1,97 @@
-    const URL_API = "https://chatcampuslands.com:8443/chatbot";
+const URL_API = "https://chatcampuslands.com:8443/chatbot";
 
-    // BASIC CRUD
+// BASIC CRUD
 
-    const myHeaders = () => {
-        const token = localStorage.getItem('authToken');
-        return new Headers({
-            "content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        });
-    };
+const myHeaders = () => {
+  const token = localStorage.getItem("authToken");
+  return new Headers({
+    "content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  });
+};
 
-    const getData = async(endpoint) => {
-        try {
-            const response = await fetch(`${URL_API}/${endpoint}`, {
-                headers: myHeaders()
-            });
-            if (response.ok) {
-                const data = await response.json();
-                return { data, response};
-            }
-            throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            return { data: null, error};
-        }
-    };
+const getData = async (endpoint) => {
+  try {
+    const response = await fetch(`${URL_API}/${endpoint}`, {
+      headers: myHeaders(),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return { data, response };
+    }
+    throw new Error(
+      `HTTP error! status: ${response.status} - ${response.statusText}`
+    );
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return { data: null, error };
+  }
+};
 
-    const getDataLanding = async () => {
-        try {
-            const response = await fetch(
-                "https://chatcampuslands.com:8443/landingpageapp/register"
-            );
-    
-            if (!response.ok) {
-                throw new Error(
-                    `HTTP error! status: ${response.status} - ${response.statusText}`
-                );
-            } 
-    
-            const data = await response.json();
-            return {data, response}
-        } catch (error) {
-            console.error("Error during fetch:", error.message);
-        }
-    };
+const getDataLanding = async () => {
+  try {
+    const response = await fetch(
+      "https://chatcampuslands.com:8443/landingpageapp/register"
+    );
 
-    const getElementData = async(endpoint, id) => {
-        try {
-            return await fetch(`${URL_API}/${endpoint}/${id}`, {
-                headers: myHeaders()
-            });
-        } catch(error){
-            console.log(error);
-        }
-    };
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! status: ${response.status} - ${response.statusText}`
+      );
+    }
 
-    const postData = async (datos, endpoint) => {
-        try {
-            const response = await fetch(`${URL_API}/${endpoint}`, {
-                method: "POST",
-                headers: myHeaders(),
-                body: JSON.stringify(datos)
-            });
+    const data = await response.json();
+    return { data, response };
+  } catch (error) {
+    console.error("Error during fetch:", error.message);
+  }
+};
 
-            if (!response.ok) {
-                const errorMessage = await response.text(); 
-                console.error(`Error ${response.status}: ${errorMessage}`);
-            }
+const getElementData = async (endpoint, id) => {
+  try {
+    return await fetch(`${URL_API}/${endpoint}/${id}`, {
+      headers: myHeaders(),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-            return response;
-        } catch (error) {
-            console.error('Error en la solicitud POST:', error.message);
-        }
-    };
+const postData = async (datos, endpoint) => {
+  try {
+    const response = await fetch(`${URL_API}/${endpoint}`, {
+      method: "POST",
+      headers: myHeaders(),
+      body: JSON.stringify(datos),
+    });
 
-    const authData = async (datos, endpoint) => {
-        try {
-            const response = await fetch(`${URL_API}/${endpoint}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(datos)
-            });
-    
-            // Return the response and let the calling code handle the redirect
-            return response;
-    
-        } catch (error) {
-            console.error('Error durante el proceso:', error);
-            throw error; // Propagate the error to be handled by the caller
-        }
-    };
-    
-    
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      console.error(`Error ${response.status}: ${errorMessage}`);
+    }
 
-    export {
-        authData,
-        getData,
-        postData,
-        getElementData,
-        getDataLanding
-    };
+    return response;
+  } catch (error) {
+    console.error("Error en la solicitud POST:", error.message);
+  }
+};
+
+const authData = async (datos, endpoint) => {
+  try {
+    const response = await fetch(`${URL_API}/${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datos),
+    });
+
+    // Return the response and let the calling code handle the redirect
+    return response;
+  } catch (error) {
+    console.error("Error durante el proceso:", error);
+    throw error; // Propagate the error to be handled by the caller
+  }
+};
+
+export { authData, getData, postData, getElementData, getDataLanding };
