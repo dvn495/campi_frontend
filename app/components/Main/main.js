@@ -1,9 +1,4 @@
-import {
-  authData,
-  getData,
-  getElementData,
-  postData,
-} from "../../../API/API.js";
+import { authData, setUsername } from "../../../API/API.js";
 
 const userInputPhone = document.getElementById("telefono");
 const userName = document.getElementById("nombreUsuario");
@@ -16,6 +11,11 @@ console.log("userPhone:", userPhone);
 
 const endpointLogin = "auth/login";
 const endpointRegister = "auth/register";
+
+const adminButton = document.getElementById("adminButton");
+adminButton.onclick = () => {
+  window.location.href = "/View/admin.html"; // Redirige a la página de administración
+};
 
 // Escucha el botón de ingreso
 btnEnterChat.addEventListener("click", async (e) => {
@@ -30,8 +30,8 @@ btnEnterChat.addEventListener("click", async (e) => {
     }`;
   }
 
-  if(!validarTelefono(userPhone)){
-    alert("El numero de telefono debe tener 10 caracteres")
+  if (!validarTelefono(userPhone)) {
+    alert("El numero de telefono debe tener 10 caracteres");
     return;
   }
 
@@ -50,6 +50,8 @@ btnEnterChat.addEventListener("click", async (e) => {
 
   console.log(datos);
 
+  localStorage.setItem("userName", userName.value);
+
   try {
     console.log("Intentando iniciar sesión...");
     const responseLogin = await authData(datos, endpointLogin);
@@ -63,19 +65,18 @@ btnEnterChat.addEventListener("click", async (e) => {
     }
   } catch (loginError) {
     console.error("Error durante el login:", loginError);
-  }
-  // Intenta registrar al usuario primero
-  try {
-    const responseCreate = await authData(datos, endpointRegister);
-    if (responseCreate.ok) {
-      console.log("Usuario registrado con éxito! Redirigiendo...");
-      const userData = await responseCreate.json();
-      localStorage.setItem("authToken", userData.token);
-      redirectToCity(userCity.value);
-      return; // Termina la función después de registrar
+    try {
+      const responseCreate = await authData(datos, endpointRegister);
+      if (responseCreate.ok) {
+        console.log("Usuario registrado con éxito! Redirigiendo...");
+        const userData = await responseCreate.json();
+        localStorage.setItem("authToken", userData.token);
+        redirectToCity(userCity.value);
+        return;
+      }
+    } catch (registerError) {
+      console.warn("Error en el registro:", registerError);
     }
-  } catch (registerError) {
-    console.warn("Error en el registro:", registerError);
   }
 });
 
@@ -87,13 +88,31 @@ function validateForm() {
   }
   return true;
 }
+async function setUserName(endpoint) {
+  const endpointUsername = endpoint;
+  try {
+    const responseUsername = await setUsername(endpointUsername);
+    if (responseUsername.ok) {
+      console.log("Usuario enviado con éxito! Redirigiendo...");
+      return;
+    }
+  } catch (usernameError) {
+    console.warn("Error en el registro:", usernameError);
+  }
+}
+
 function redirectToCity(city) {
   const Bucaramanga = "/View/chat.html";
   const Bogota = "/View/chatBogota.html";
 
   if (city === "Bucaramanga") {
+    const endpoint = "https://chatcampuslands.com:8443/chatbot/user/username";
+    setUserName(endpoint);
     window.location.href = Bucaramanga; // Cambiar ruta si es necesario
   } else if (city === "Bogota") {
+    const endpoint =
+      "https://chatcampuslands.com:8443/chatbotbogota/user/username";
+    setUserName(endpoint);
     window.location.href = Bogota; // Cambiar ruta si es necesario
   } else {
     alert("Ciudad no reconocida. Por favor selecciona una opción válida.");
@@ -101,17 +120,32 @@ function redirectToCity(city) {
 }
 
 function validarTelefono(numero) {
-  // Remover cualquier espacio o carácter no numérico
-  const numeroStr = String(numero).replace(/\D/g, ""); // Mantener solo dígitos
+  // Función mejorada para normalizar teléfonos
+  const normalizarTelefono = (telefono) => {
+    if (!telefono) return null;
 
-  // Validar que tenga exactamente 12 dígitos
-  if (numeroStr.length === 12) {
-    console.log("El número de teléfono es válido.");
-    return true;
-  } else {
+    // Convertir a string y eliminar todo lo que no sea número
+    let numeroLimpio = telefono.toString().replace(/\D/g, "");
+
+    // Si comienza con 57, remover el prefijo
+    if (numeroLimpio.startsWith("57")) {
+      numeroLimpio = numeroLimpio.substring(2);
+    }
+
+    // Asegurarse de que tengamos un número de 10 dígitos que comience con 3
+    if (numeroLimpio.length === 10 && numeroLimpio.startsWith("3")) {
+      return numeroLimpio;
+    }
+
     console.log(
-      "El número de teléfono no es válido. Debe tener exactamente 12 dígitos."
+      "Número no normalizado:",
+      telefono,
+      "-> resultado:",
+      numeroLimpio
     );
-    return false;
-  }
+    return null;
+  };
+
+  // Invocación de normalizarTelefono
+  return normalizarTelefono(numero);
 }

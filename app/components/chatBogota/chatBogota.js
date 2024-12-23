@@ -6,6 +6,7 @@ export class BogotaChat extends HTMLElement {
     this.render();
     this.webSocket();
     this.addEventListeners();
+    this.dropdown();
   }
 
   render() {
@@ -20,9 +21,9 @@ export class BogotaChat extends HTMLElement {
                         <div class="modal-content">
                             <span id="closeModal" class="close">&times;</span>
                             <div id="questions-container">
-                                <button class="faq-button-question" id="pregunta1">¿Qué es Campuslands?</button>
+                                <button class="faq-button-question" id="pregunta1">¿Qué es EAN Campuslands?</button>
                                 <button class="faq-button-question" id="pregunta2">¿Dónde están ubicados?</button>
-                                <button class="faq-button-question" id="pregunta3">¿Cuáles son los requisitos para ser parte de Campuslands?</button>
+                                <button class="faq-button-question" id="pregunta3">¿Cuáles son los requisitos para ser parte de EAN Campuslands?</button>
                                 <button class="faq-button-question" id="pregunta4">¿Cuánto cuesta ingresar?</button>
                                 <button class="faq-button-question" id="pregunta5">¿Cómo es el plan académico?</button>
                                 <button class="faq-button-question" id="pregunta6">¿Qué oportunidades laborales hay?</button>
@@ -44,16 +45,16 @@ export class BogotaChat extends HTMLElement {
                         <br>
                         <div class="container-welcome">
                             <div class="container-img">
-                                <img src="/img/campus (1).png">
+                                <img class="img-EAN" src="/img/eanCampuslands.jpg">
                             </div>
                             <br>
                             <div class="welcome-text">
-                                ¡Hola y bienvenid@ a tu chat con Campuslands! Soy Campi, y estoy aquí para ayudarte a resolver todas tus dudas sobre Campuslands.
+                                ¡Hola y bienvenid@ a tu chat con EAN Campuslands! Soy Isa, y estoy aquí para ayudarte a resolver todas tus dudas sobre Campuslands.
                             </div>
                         </div>
                         
                         <br>
-                        <div class="warning_time">¡Campi puede estár ocupado un momentito! 😊⏳ Dame unos segundos y vuelvo contigo con toda la energía. 🚀✨</div>
+                        <div class="warning_time">¡Isa puede estár ocupada un momentito! 😊⏳ Dame unos segundos y vuelvo contigo con toda la energía. 🚀✨</div>
                         <br>
                     </div>
                     <div id="waitingButton" class="waiting-button" style="display: none;">
@@ -74,7 +75,10 @@ export class BogotaChat extends HTMLElement {
                     </div>
                 </div>
             </div>
-            <ul class="wrapper">
+            <div class="dropdownWrapper" id="dropdownWrapper">
+              <box-icon name='message-rounded-dots' type='solid' ></box-icon>
+            </div>
+            <ul class="wrapper hidden" id="dropdownList">
                 <li class="icon facebook">
                     <a href="https://www.facebook.com/Campuslands/?locale=es_LA" target="_blank">
                         <box-icon type='logo' name='facebook-circle'></box-icon>
@@ -156,6 +160,8 @@ export class BogotaChat extends HTMLElement {
 
           messageCount++;
           if (messageCount === 1) {
+            document.getElementById("messageInput").disabled = true;
+            document.getElementById("btnSendMessage").disabled = true;
             messageArea.innerHTML += `
                             <div class="container-iaMessage campuslands-promo">
                                 <div class="iaMessage promo-message">
@@ -171,10 +177,16 @@ export class BogotaChat extends HTMLElement {
                                             </div>
                                             <div class="call-promo__contact right">
                                                 <button class="availability-response btnContactPromo" value="no">No</button>
-                                            <div>
+                                            </div>
                                         </div>
                                 </div>
                             </div>
+                            <br>
+                            <div class="container-iaMessage campuslands-promo">
+                              <div class="iaMessage promo-message">
+                                <p> ✨ Por favor, selecciona una opción para que podamos continuar conversando. 🌟</p>
+                              </div>
+                            </div>   
                             `;
             messageArea.scrollTop = messageArea.scrollHeight;
             this.addAgeAndAviability();
@@ -183,9 +195,9 @@ export class BogotaChat extends HTMLElement {
             messageArea.innerHTML += `
                             <div class="container-iaMessage campuslands-promo">
                                 <div class="iaMessage promo-message">
-                                    ¡Inscríbete en Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
+                                    ¡Inscríbete en EAN Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
                                     <br>
-                                    Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a Campuslands</a>
+                                    Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a EAN Campuslands</a>
                                     <br>
                                     ¡Cupos limitados, no te quedes fuera!
                                 </div>
@@ -241,13 +253,14 @@ export class BogotaChat extends HTMLElement {
 
   sendMessage(socket) {
     const endpoint = "messages/add";
+    const userName = localStorage.getItem("userName");
     const messageInput = document.getElementById("messageInput");
     if (messageInput.value.trim() === "") {
       return;
     } else {
       const fullMessage = {
         type: "message",
-        message: messageInput.value,
+        message:  `Mi nombre es: ${userName} y mi pregunta es: ${messageInput.value}`
       };
       const jsonString = JSON.stringify(fullMessage);
       let messageArea = document.getElementById("conversation");
@@ -262,6 +275,43 @@ export class BogotaChat extends HTMLElement {
       messageInput.value = "";
       messageArea.scrollTop = messageArea.scrollHeight;
     }
+  }
+  dropdown() {
+    document.addEventListener("DOMContentLoaded", () => {
+      const dropdownBtn = document.getElementById("dropdownWrapper");
+      const dropdownList = document.getElementById("dropdownList");
+      
+      function openDropdown() {
+        dropdownList.classList.add("active");
+        dropdownBtn.classList.add("hidden");
+      }
+      
+      function closeDropdown() {
+        dropdownList.classList.remove("active");
+        dropdownBtn.classList.remove("hidden");
+      }
+      
+      dropdownBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (dropdownList.classList.contains("active")) {
+          closeDropdown();
+        } else {
+          openDropdown();
+        }
+      });
+
+      window.addEventListener("click", (event) => {
+        if (!dropdownList.contains(event.target) && !dropdownBtn.contains(event.target)) {
+          closeDropdown();
+        }
+      });
+      
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeDropdown();
+        }
+      });
+    });
   }
 
   addEventListeners() {
@@ -291,11 +341,11 @@ export class BogotaChat extends HTMLElement {
 
     // Asigna eventos a las preguntas frecuentes
     const questions = [
-      { id: "pregunta1", question: "¿Qué es Campuslands?" },
+      { id: "pregunta1", question: "¿Qué es EAN Campuslands?" },
       { id: "pregunta2", question: "¿Dónde están ubicados?" },
       {
         id: "pregunta3",
-        question: "¿Cuáles son los requisitos para ser parte de Campuslands?",
+        question: "¿Cuáles son los requisitos para ser parte de EAN Campuslands?",
       },
       { id: "pregunta4", question: "¿Cuánto cuesta ingresar?" },
       { id: "pregunta5", question: "¿Cómo es el plan académico?" },
@@ -311,17 +361,17 @@ export class BogotaChat extends HTMLElement {
   handleQuestionClick(questionId) {
     const respuestas = {
       pregunta1:
-        "Campuslands es una experiencia educativa intensiva de un año 📚🚀 que forma a jóvenes en tecnología 💻, inglés 🌎 y habilidades blandas 🤝, preparándolos para empleos bien remunerados 💰. Es 100% presencial 🏫 y acelera la inserción laboral rápidamente ⏩.",
+        "EAN Campuslands es una experiencia educativa intensiva de un año 📚🚀 que forma a jóvenes en tecnología 💻, inglés 🌎 y habilidades blandas 🤝, preparándolos para empleos bien remunerados 💰. Es 100% presencial 🏫 y acelera la inserción laboral rápidamente ⏩.",
       pregunta2:
-        "Campuslands se encuentra en la Zona Franca de Santander 🏢, en el moderno edificio Zenith, piso 6, sobre el Anillo Vial que conecta Girón con Floridablanca, Colombia 🌍. Es un lugar estratégico y de fácil acceso 🚗✨.",
+        "EAN Campuslands se encuentra en la Universidad EAN, calle 71 #9-84, Colombia 🌍. Es un lugar estratégico y de fácil acceso 🚗✨.",
       pregunta3:
-        "Para ingresar a Campuslands necesitas tener entre 17 y 32 años, disponibilidad de 8-10 horas diarias para asistir presencialmente de lunes a viernes, y, sobre todo, actitud positiva, lógica y disciplina 💪📚. Si tienes estas cualidades, estás listo para vivir la experiencia transformadora que te llevará al éxito 🚀✨.",
+        "Para ingresar a EAN Campuslands necesitas tener entre 17 y 32 años, disponibilidad de 8-10 horas diarias para asistir presencialmente de lunes a viernes, y, sobre todo, actitud positiva, lógica y disciplina 💪📚. Si tienes estas cualidades, estás listo para vivir la experiencia transformadora que te llevará al éxito 🚀✨.",
       pregunta4:
-        "El programa de Campuslands tiene una inversión de 20 millones de pesos 💰, pero no te preocupes, porque contamos con becas que cubren entre el 50% y el 100% 🎓✨, además de opciones de financiamiento para que nada te detenga en tu camino hacia un futuro en tecnología 🚀💻.",
+        "El programa de EAN Campuslands tiene una inversión de 20 millones de pesos 💰, pero no te preocupes, porque contamos con becas que cubren entre el 50% y el 100% 🎓✨, además de opciones de financiamiento para que nada te detenga en tu camino hacia un futuro en tecnología 🚀💻.",
       pregunta5:
-        "El plan académico de Campuslands dura un año e incluye programación avanzada 💻, inglés 🌎 y habilidades blandas 🤝 para prepararte para el mercado laboral. Los horarios son intensivos y puedes elegir entre la jornada matutina de 6:00 a.m. a 3:00 p.m. ⏰🌅 o la vespertina de 2:00 p.m. a 10:00-11:00 p.m. 🌆🌙. ¡Prepárate para un año transformador! 🚀✨.",
+        "El plan académico de EAN Campuslands dura un año e incluye programación avanzada 💻, inglés 🌎 y habilidades blandas 🤝 para prepararte para el mercado laboral. Los horarios son intensivos y puedes elegir entre la jornada matutina de 6:00 a.m. a 3:00 p.m. ⏰🌅 o la vespertina de 2:00 p.m. a 10:00-11:00 p.m. 🌆🌙. ¡Prepárate para un año transformador! 🚀✨.",
       pregunta6:
-        "Al graduarte de Campuslands, tendrás oportunidades laborales como desarrollador de software 💻, analista de datos 📊, soporte técnico 🛠️, entre otros roles demandados en tecnología. Estas posiciones ofrecen buenas remuneraciones y prometen un crecimiento profesional en un sector en constante expansión 🚀​.",
+        "Al graduarte de EAN Campuslands, tendrás oportunidades laborales como desarrollador de software 💻, analista de datos 📊, soporte técnico 🛠️, entre otros roles demandados en tecnología. Estas posiciones ofrecen buenas remuneraciones y prometen un crecimiento profesional en un sector en constante expansión 🚀​.",
     };
 
     const respuesta = respuestas[questionId];
@@ -330,8 +380,8 @@ export class BogotaChat extends HTMLElement {
       answerContainer.innerHTML += `<div class="container-iaMessage"><div class="iaMessage"><strong></strong> ${respuesta}</div></div><br>`;
       answerContainer.innerHTML += `
                             <div class="container-iaMessage"><div class="iaMessage">
-                            ¡Inscríbete en Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
-                            <br>Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a Campuslands</a>
+                            ¡Inscríbete en EAN Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
+                            <br>Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a EAN Campuslands</a>
                             <br>¡Cupos limitados, no te quedes fuera!
                             </div></div><br>
                             `;
@@ -412,11 +462,13 @@ export class BogotaChat extends HTMLElement {
         } catch (error) {
           console.error("Error en la solicitud de disponibilidad:", error);
         }
+        document.getElementById("messageInput").disabled = false;
+        document.getElementById("btnSendMessage").disabled = false;
 
         let messageArea = document.getElementById("conversation");
         if (messageArea) {
           messageArea.innerHTML +=
-            '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por participar! 🚀✨ ¿En qué más puedo ayudarte? 🌟</div></div><br>';
+            '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por tu respuesta! 🚀✨ ¿En qué más puedo ayudarte? 🌟</div></div><br>';
           messageArea.scrollTop = messageArea.scrollHeight;
         }
       });
@@ -478,7 +530,7 @@ export class BogotaChat extends HTMLElement {
                             <br>
                             <div class="container-iaMessage">
                                 <div class="iaMessage">
-                                    ¡Gracias por tu interés en Campuslands! 📞✨ Pronto uno de nuestros asesores se pondrá en contacto contigo vía telefónica para resolver tus dudas y acompañarte en este proceso. 
+                                    ¡Gracias por tu interés en EAN Campuslands! 📞✨ Pronto uno de nuestros asesores se pondrá en contacto contigo vía telefónica para resolver tus dudas y acompañarte en este proceso. 
                                     ¡Prepárate para esta llamada, será el inicio de algo increíble! 🚀
                                 </div>
                             </div>
@@ -495,7 +547,7 @@ export class BogotaChat extends HTMLElement {
 
             // Properly encode the message for URL usage
             const whatsappText = encodeURIComponent(`
-                            ¡Hola! Mi nombre es: ${nombreUsuario}. Estoy interesado en conocer más sobre Campuslands, su modelo educativo y cómo puedo ser parte de esta experiencia transformadora. 😊
+                            ¡Hola! Mi nombre es: ${nombreUsuario}. Estoy interesado en conocer más sobre EAN Campuslands, su modelo educativo y cómo puedo ser parte de esta experiencia transformadora. 😊
                         `);
 
             messageArea.innerHTML += `
