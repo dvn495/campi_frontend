@@ -28,6 +28,26 @@ const getData = async (endpoint) => {
   }
 };
 
+const setUsername= async (endpoint) => {
+  try {
+    const response = await fetch(`${endpoint}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Error setting username');
+    }
+
+    console.log('Username successfully set on the server');
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+
 const getDataLanding = async () => {
   try {
     const response = await fetch(
@@ -94,4 +114,4 @@ const authData = async (datos, endpoint) => {
   }
 };
 
-export { authData, getData, postData, getElementData, getDataLanding };
+export { authData, getData, postData, getElementData, getDataLanding,setUsername};

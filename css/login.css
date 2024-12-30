@@ -1,408 +1,235 @@
-.container {
-    width: 100%; 
-    height: 100vh;
-}  
+/* Root variables for consistent theming */
+:root {
+  --darkBlue: #2266b4;
+  --blue: #0077ff;
+  --bgDark: #17345a;
+  --lightGrey: #d9d9d9;
+  --inputBg: #f2f2f2;
+  --bg: #3c465c;
+  --primary: #78ffcd;
+  --solid: #fff;
+  --btn-w: 10em;
+  --dot-w: calc(var(--btn-w) * 0.2);
+  --tr-X: calc(var(--btn-w) - var(--dot-w));
+}
 
+/* Base styles */
+body {
+  background: var(--bgDark);
+  color: var(--solid);
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container styling */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Login box styling */
 .login-box {
-    margin-top: 75px;
-    padding: 20px;
-    height: auto;
-    background: #1A2226;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: whitesmoke;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem;
+  width: 100%;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.login-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Logo and title styling */
+.login-key {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .login-key img {
-    width: 80px;
+  height: 80px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.login-key img:hover {
+  transform: scale(1.05);
 }
 
 .login-title {
-    margin-top: 15px;
-    font-size: 30px;
-    letter-spacing: 2px;
-    font-weight: bold;
-    color: #ECF0F5;
+  color: var(--primary);
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 1.5rem 0;
+  text-align: center;
 }
 
-.login-form {
-    margin-top: 25px;
-}
-
+/* Form styling */
 .form-group {
-    margin-bottom: 30px;
-    position: relative;
-}
-
-/* Asegura que todos los inputs y selects ocupen el 100% de su contenedor */
-input[type="text"].form-control,
-input[type="tel"].form-control,
-input[type="number"].form-control,
-select.form-control {
-    background-color: #1A2226;
-    border: none;
-    border-bottom: 2px solid #45bbd6;
-    color: #ECF0F5;
-    font-weight: bold;
-    outline: 0;
-    width: 100% !important;
-    padding: 10px 0 5px;
-    margin-top: 5px;
-    transition: border-color 0.3s ease;
-    appearance: none;
-}
-
-/* Estilo para el prefijo del código de país */
-.iti__selected-dial-code {
-    color: #45bbd6;
-    font-weight: bold;
-}
-
-/* Fondo del contenedor de banderas */
-.iti__flag-container {
-    background-color: #1A2226;
-    border: 1px solid #45bbd6;
-    border-radius: 4px;
-}
-
-/* Cambia el color de la bandera y el prefijo cuando el input está activo */
-.iti--separate-dial-code .iti__selected-dial-code,
-.iti--separate-dial-code .iti__selected-flag {
-    color: #ECF0F5;
-}
-
-/* Personalización para la lista de opciones del código de país */
-.iti .iti__country-list {
-    background-color: #222D32 !important;
-    color: #ECF0F5 !important;
-    border: 1px solid #45bbd6;
-}
-
-
-/* Cambia el color al pasar el mouse por encima de cada opción */
-.iti__country:hover {
-    background-color: #1A2226;
-}
-
-/* Personalización de cada bandera dentro de la lista de países */
-.iti__country .iti__flag {
-    margin-right: 8px;
-}
-
-/* Personalización para mejorar visibilidad del texto en el campo */
-#telefono {
-    color: #ECF0F5;
-    background-color: #1A2226;
-}
-
-
-/* Elimina el estilo predeterminado de la librería intl-tel-input */
-.iti {
-    width: 100% !important;
-}
-
-.iti input {
-    width: 100% !important;
-    padding-left: 10px;
-}
-
-/* Mantener el color del fondo cuando se selecciona */
-input[type="text"].form-control:focus,
-input[type="tel"].form-control:focus,
-input[type="number"].form-control:focus,
-select.form-control:focus {
-    background-color: #1A2226;
-    border-bottom-color: #27EF9F;
-    color: #ECF0F5;
-}
-
-/* Personalización del select con flecha */
-select.form-control {
-    padding-right: 30px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="%23ECF0F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 15px;
-    color: #ECF0F5;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-/* Estilo para las opciones del select */
-select.form-control option {
-    color: #333;
-    background-color: #7b9aca;
+  margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .form-control-label {
-    font-size: 12px;
-    color: #6C6C6C;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    display: block;
-    margin-top: 0;
+  color: var(--bgDark);
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.form-controller {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-controller:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary);
+  transform: translateY(-2px);
+}
+
+/* Select styling */
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2317345a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+/* Button styling */
+.login-button-container {
+  margin-top: 2rem;
+  text-align: center;
 }
 
 .btn-outline-primary {
-    border: 2px solid #0DB8DE;
-    color: #0DB8DE;
-    border-radius: 4px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  background: var(--primary);
+  border: none;
+  border-radius: 24px;
+  color: var(--bgDark);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  min-width: var(--btn-w);
+  transition: all 0.3s ease;
 }
 
 .btn-outline-primary:hover {
-    background-color: #0DB8DE;
-    color: #FFF;
+  background: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(120, 255, 205, 0.3);
 }
 
-/* Centra todo el contenido dentro de .loginbttm */
-.loginbttm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 25px;
-}
-
-/* Elimina cualquier alineación de texto innecesaria de .login-btm */
-.login-btm {
-    color: #A2A4A4;
-    text-align: center;
-    width: auto;
-}
-
-/* Estilos específicos para el botón */
-.login-button {
-    text-align: center;
-    width: auto;
-}
-
-
-/*admin*/
-
-.admin-button{
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    appearance: none;
-    color: #45bbd6;
-    font-family: “Helvetica”, arial, sans-serif;
-    font-size: 15px;
-    border:2px solid #45bbd6;
-    background:transparent;
-    border-radius: 8px;
-    padding: 4px;
-    display: inline-block;
-    transition: all 0.3s ease-out;
-    
+/* Admin button styling */
+.admin-button {
+  background: transparent;
+  border: 2px solid var(--primary);
+  border-radius: 20px;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  transition: all 0.3s ease;
 }
 
 .admin-button:hover {
-    background: #45bbd6;
-    color: #1A2226;
-    transform: translateY(-2px);
+  background: var(--primary);
+  color: var(--bgDark);
 }
 
-/* Admin Panel Styles */
-.admin-container {
-    width: 100%;
-    display: flex;
-    gap: 20px;
-    padding: 20px;
+/* International telephone input styling */
+.iti {
+  width: 100% !important;
 }
 
-.adminSectionPanel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #1A2226;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    margin: 20px auto;
+.iti__flag-container {
+  border-radius: 8px 0 0 8px;
+  overflow: hidden;
 }
 
-.containerTables{
-    display: flex;
-    flex-direction: row;
-    align-items:flex-start;
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 600px;
-    gap: 25px;
-    
-}
-.admin-title {
-    color: #ECF0F5;
-    font-size: 30px;
-    letter-spacing: 2px;
-    font-weight: bold;
-    margin-bottom: 30px;
-    text-transform: uppercase;
+.iti__selected-flag {
+  background: var(--inputBg) !important;
+  padding: 0 1rem;
 }
 
-.date-title{
-    color: #ECF0F5;
-    font-size: 20px;
-    letter-spacing: 2px;
-    font-weight: bold;
+.iti__country-list {
+  background: var(--solid);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
 }
 
-.form-date__input {
-    appearance: none;
-    color: #45bbd6;
-    font-family: “Helvetica”, arial, sans-serif;
-    font-size: 15px;
-    border:2px solid #45bbd6;
-    background:#222D32;
-    border-radius: 8px;
-    padding: 4px;
-    display: inline-block;
-    visibility: visible;
-    width: 140px;
-    transition: all 0.3s ease-out;
+.iti__country:hover {
+  background-color: var(--inputBg);
 }
 
-.form-date__input:hover {
-    background: #45bbd6;
-    color: #1A2226;
-    transform: translateY(-2px);
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-
-.form-date__input:focus {
-    background: #45bbd6;
-    color: #1A2226;
-    border-color: #80BDFF;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+::-webkit-scrollbar-track {
+  background: var(--bgDark);
 }
 
-.admin{
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
 }
 
-.adminControl{
-    appearance: none;
-    padding: 5px;
-    color: #45bbd6;
-    border-radius: 8px;
-    font-family: “Helvetica”, arial, sans-serif;
-    font-size: 15px;
-    border:2px solid #45bbd6;
-    background:#222D32;
-    transition: all 0.3s ease-out;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue);
 }
 
-.adminControl:hover{
-    cursor: pointer;
-    background: #45bbd6;
-    color: #1A2226;
-    transform: translateY(-2px);
+/* Error state */
+.form-control.error {
+  box-shadow: 0 0 0 2px var(--error);
 }
 
-.landing{
-    position: absolute;
-    top: 15px;
-    right: 15px;
+/* Loading state for button */
+.btn-outline-primary.loading {
+  background: var(--primary);
+  opacity: 0.8;
+  pointer-events: none;
 }
 
-#adminPassword {
-    background-color: #1A2226;
-    border: none;
-    border-bottom: 2px solid #45bbd6;
-    color: #ECF0F5;
-    font-weight: bold;
-    padding: 10px 15px;
-    width: 300px;
-    margin-bottom: 20px;
-    transition: border-color 0.3s ease;
-}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-box {
+    padding: 2rem;
+    margin: 1rem;
+  }
 
-#adminPassword:focus {
-    border-bottom-color: #27EF9F;
-    outline: none;
-}
-
-#submitPassword {
-    border: 2px solid #0DB8DE;
-    color: #0DB8DE;
-    background: transparent;
-    border-radius: 4px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    padding: 10px 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-}
-
-#submitPassword:hover {
-    background-color: #0DB8DE;
-    color: #FFF;
-}
-
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-.data-table th, .data-table td {
-    padding: 12px;
-    text-align: left;
-    color: #ECF0F5;
-    border-bottom: 1px solid #45bbd6;
-}
-
-.data-table th {
-    background-color: #222D32;
-    font-weight: bold;
-}
-
-.buttons-title {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #222D32;
-    border-radius: 8px;
-}
-
-.titleExport {
-    color: #ECF0F5;
-    font-size: 16px;
-    letter-spacing: 1px;
-    margin: 0;
-    min-width: max-content;
-}
-
-.export-btn {
-    background: transparent;
-    border: 2px solid #45bbd6;
-    color: #45bbd6;
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-}
-
-.export-btn:hover {
-    background: #45bbd6;
-    color: #1A2226;
-    transform: translateY(-2px);
-}
-
-.export-btn:active {
-    transform: translateY(0);
+  .admin-button {
+    top: 1rem;
+    right: 1rem;
+  }
 }

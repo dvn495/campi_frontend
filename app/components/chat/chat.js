@@ -6,6 +6,7 @@ export class GeneralChat extends HTMLElement {
     this.webSocket();
     this.addEventListeners();
     this.configureMarkdown();
+    this.dropdown();
   }
 
   render() {
@@ -45,16 +46,16 @@ export class GeneralChat extends HTMLElement {
                         <br>
                         <div class="container-welcome">
                             <div class="container-img">
-                                <img src="/img/campus (1).png">
+                                <img src="/img/b1e51731-885e-4bfb-a858-125b98681c46.jpeg">
                             </div>
                             <br>
                             <div class="welcome-text">
-                                ¡Hola y bienvenid@ a tu chat con Campuslands! Soy Campi, y estoy aquí para ayudarte a resolver todas tus dudas sobre Campuslands.
+                                ¡Hola y bienvenid@ a tu chat con Campuslands! Soy Isa, y estoy aquí para ayudarte a resolver todas tus dudas sobre Campuslands.
                             </div>
                         </div>
                         
                         <br>
-                        <div class="warning_time">¡Campi puede estár ocupado un momentito! 😊⏳ Dame unos segundos y vuelvo contigo con toda la energía. 🚀✨</div>
+                        <div class="warning_time">¡Isa puede estár ocupada un momentito! 😊⏳ Dame unos segundos y vuelvo contigo con toda la energía. 🚀✨</div>
                         <br>
                     </div>
                     <div id="waitingButton" class="waiting-button" style="display: none;">
@@ -75,7 +76,10 @@ export class GeneralChat extends HTMLElement {
                     </div>
                 </div>
             </div>
-            <ul class="wrapper">
+            <div class="dropdownWrapper" id="dropdownWrapper">
+              <box-icon name='message-rounded-dots' type='solid' ></box-icon>
+            </div>
+            <ul class="wrapper hidden" id="dropdownList">
                 <li class="icon facebook">
                     <a href="https://www.facebook.com/Campuslands/?locale=es_LA" target="_blank">
                         <box-icon type='logo' name='facebook-circle'></box-icon>
@@ -156,6 +160,9 @@ export class GeneralChat extends HTMLElement {
 
           messageCount++;
           if (messageCount === 1) {
+            document.getElementById("messageInput").disabled = true;
+            document.getElementById("btnSendMessage").disabled = true;
+
             messageArea.innerHTML += `
                             <div class="container-iaMessage campuslands-promo">
                                 <div class="iaMessage promo-message">
@@ -171,27 +178,19 @@ export class GeneralChat extends HTMLElement {
                                             </div>
                                             <div class="call-promo__contact right">
                                                 <button class="availability-response btnContactPromo" value="no">No</button>
-                                            <div>
+                                            </div>
                                         </div>
                                 </div>
                             </div>
+                            <br>
+                            <div class="container-iaMessage campuslands-promo">
+                              <div class="iaMessage promo-message">
+                                <p> 🚨⚠️ Por favor, selecciona una opción para que podamos continuar conversando. ⚠️🚨</p>
+                              </div>
+                            </div>   
                             `;
             messageArea.scrollTop = messageArea.scrollHeight;
             this.addAgeAndAviability();
-          }
-          if (messageCount % 5 === 0) {
-            messageArea.innerHTML += `
-                            <div class="container-iaMessage campuslands-promo">
-                                <div class="iaMessage promo-message">
-                                    ¡Inscríbete en Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
-                                    <br>
-                                    Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a Campuslands</a>
-                                    <br>
-                                    ¡Cupos limitados, no te quedes fuera!
-                                </div>
-                            </div>
-                            `;
-            messageArea.scrollTop = messageArea.scrollHeight;
           }
           if (messageCount === 8) {
             messageArea.innerHTML += `
@@ -241,13 +240,14 @@ export class GeneralChat extends HTMLElement {
 
   sendMessage(socket) {
     const endpoint = "messages/add";
+    const userName = localStorage.getItem("userName");
     const messageInput = document.getElementById("messageInput");
     if (messageInput.value.trim() === "") {
       return;
     } else {
       const fullMessage = {
         type: "message",
-        message: messageInput.value,
+        message: `Mi nombre es: ${userName} y mi pregunta es: ${messageInput.value}`,
       };
       const jsonString = JSON.stringify(fullMessage);
       let messageArea = document.getElementById("conversation");
@@ -262,6 +262,47 @@ export class GeneralChat extends HTMLElement {
       messageInput.value = "";
       messageArea.scrollTop = messageArea.scrollHeight;
     }
+  }
+
+  dropdown() {
+    document.addEventListener("DOMContentLoaded", () => {
+      const dropdownBtn = document.getElementById("dropdownWrapper");
+      const dropdownList = document.getElementById("dropdownList");
+
+      function openDropdown() {
+        dropdownList.classList.add("active");
+        dropdownBtn.classList.add("hidden");
+      }
+
+      function closeDropdown() {
+        dropdownList.classList.remove("active");
+        dropdownBtn.classList.remove("hidden");
+      }
+
+      dropdownBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (dropdownList.classList.contains("active")) {
+          closeDropdown();
+        } else {
+          openDropdown();
+        }
+      });
+
+      window.addEventListener("click", (event) => {
+        if (
+          !dropdownList.contains(event.target) &&
+          !dropdownBtn.contains(event.target)
+        ) {
+          closeDropdown();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeDropdown();
+        }
+      });
+    });
   }
 
   addEventListeners() {
@@ -412,11 +453,12 @@ export class GeneralChat extends HTMLElement {
         } catch (error) {
           console.error("Error en la solicitud de disponibilidad:", error);
         }
-
+        document.getElementById("messageInput").disabled = false;
+        document.getElementById("btnSendMessage").disabled = false;
         let messageArea = document.getElementById("conversation");
         if (messageArea) {
           messageArea.innerHTML +=
-            '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por participar! 🚀✨ ¿En qué más puedo ayudarte? 🌟</div></div><br>';
+            '<br><div class="container-iaMessage"><div class="iaMessage">¡Gracias por tu respuesta! 🚀✨ ¿En qué más puedo ayudarte? 🌟</div></div><br>';
           messageArea.scrollTop = messageArea.scrollHeight;
         }
       });

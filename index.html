@@ -1,89 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Campi</title>
-    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="./css/login.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/login.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
     <script type="module" src="./app/components/Main/main.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <style>
-        html, body {
+      html,
+      body {
         height: 100%;
         margin: 0;
         padding: 0;
         width: 100%;
-        background: #222D32;
-        font-family: 'Roboto', sans-serif;
-    }
+        background: #222d32;
+        font-family: "Roboto", sans-serif;
+      }
     </style>
-    
+
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-2"></div>
-            <div class="admin-section">
-                <button id="adminButton" class="admin-button">Admin</button>
-            </div>
-            <div class="col-lg-6 col-md-8 login-box">
-                <div class="col-lg-12 login-key">
-                    <img src="./img/logo.png" alt="Logo" style="height: 80px;">
-                </div>                
-                <div class="col-lg-12 login-title">
-                    ¡Bienvenido a Campuslands!
-                </div>
-    
-                <div class="col-lg-12 login-form">
-                    <div class="col-lg-12 login-form">
-                        <form id="loginForm">
-                            <div class="form-group">
-                                <label class="form-control-label">Teléfono</label>
-                                <input type="number" id="telefono" class="form-control">
-                            </div>                            
-                            <div class="form-group">
-                                <label class="form-control-label">Nombre y Apellido</label>
-                                <input type="text" id="nombreUsuario" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Ciudad</label>
-                                <select id="ciudad" class="form-control">
-                                    <option value="">Seleccione su ciudad</option>
-                                    <option value="Bucaramanga">Bucaramanga</option>
-                                    <option value="Bogota">Bogotá</option>
-                                </select>
-                            </div>
-                            <!-- Botón centrado -->
-                            <div class="form-group login-button-container">
-                                <button id="ingresarBtn"type="button" class="btn btn-outline-primary">Ingresar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-2"></div>
+      <div class="row">
+        <div class="col-lg-3 col-md-2"></div>
+        <div class="admin-section">
+          <button id="adminButton" class="admin-button">Admin</button>
         </div>
-    </div>    
+        <div class="login-box">
+          <div class="col-lg-12 login-key">
+            <img src="./img/logo.png" alt="Logo" style="height: 80px" />
+          </div>
+          <div class="col-lg-12 login-title">¡Bienvenido a Campuslands!</div>
+
+          <div class="col-lg-12 login-form">
+            <div class="col-lg-12 login-form">
+              <form id="loginForm">
+                <div class="form-group">
+                  <label class="form-control-label">Teléfono</label>
+                  <input type="number" id="telefono" class="form-controller" />
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Nombre y Apellido</label>
+                  <input
+                    type="text"
+                    id="nombreUsuario"
+                    class="form-controller"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Ciudad</label>
+                  <select id="ciudad" class="form-controller">
+                    <option value="">Seleccione su ciudad</option>
+                    <option value="Bucaramanga">Bucaramanga</option>
+                    <option value="Bogota">Bogotá</option>
+                  </select>
+                </div>
+                <!-- Botón centrado -->
+                <div class="form-group login-button-container">
+                  <button
+                    id="ingresarBtn"
+                    type="button"
+                    class="btn btn-outline-primary"
+                  >
+                    Ingresar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-2"></div>
+      </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script>
-        const input = document.querySelector("#telefono");
+      const input = document.querySelector("#telefono");
 
-        // Inicializa intl-tel-input en el campo de teléfono
-        const iti = window.intlTelInput(input, {
-            separateDialCode: true,
-            initialCountry: "auto",
-            geoIpLookup: function(callback) {
-                fetch("https://ipinfo.io?token=f8df01a611ed79")
-                    .then((resp) => resp.json())
-                    .then((data) => callback(data.country))
-                    .catch(() => callback("us"));
-            },
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-        });
+      // Inicializa intl-tel-input en el campo de teléfono
+      const iti = window.intlTelInput(input, {
+        separateDialCode: true,
+        initialCountry: "auto",
+        geoIpLookup: function (callback) {
+          fetch("https://ipinfo.io?token=f8df01a611ed79")
+            .then((resp) => resp.json())
+            .then((data) => callback(data.country))
+            .catch(() => callback("us"));
+        },
+        utilsScript:
+          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+      });
     </script>
-</body>
+  </body>
 </html>

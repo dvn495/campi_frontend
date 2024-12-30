@@ -42,8 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const endpointLogin = "auth/login";
 
     datos.id = 0;
-    datos.username = enteredPassword;
-    datos.telefono = 111906;
+    datos.username = enteredPassword;                         datos.telefono = 111906;
     datos.role = "ADMIN";
 
     try {
