@@ -46,7 +46,7 @@ export class GeneralChat extends HTMLElement {
                         <br>
                         <div class="container-welcome">
                             <div class="container-img">
-                                <img src="/img/campus (1).png">
+                                <img src="/img/b1e51731-885e-4bfb-a858-125b98681c46.jpeg">
                             </div>
                             <br>
                             <div class="welcome-text">
@@ -185,26 +185,12 @@ export class GeneralChat extends HTMLElement {
                             <br>
                             <div class="container-iaMessage campuslands-promo">
                               <div class="iaMessage promo-message">
-                                <p> ✨ Por favor, selecciona una opción para que podamos continuar conversando. 🌟</p>
+                                <p> 🚨⚠️ Por favor, selecciona una opción para que podamos continuar conversando. ⚠️🚨</p>
                               </div>
                             </div>   
                             `;
             messageArea.scrollTop = messageArea.scrollHeight;
             this.addAgeAndAviability();
-          }
-          if (messageCount % 5 === 0) {
-            messageArea.innerHTML += `
-                            <div class="container-iaMessage campuslands-promo">
-                                <div class="iaMessage promo-message">
-                                    ¡Inscríbete en Campuslands y transforma tu vida en solo un año! 🚀 Aprende tecnología, inglés y habilidades clave para destacar en el mercado laboral.
-                                    <br>
-                                    Regístrate aquí: <a href="https://miniurl.cl/RegistroCampuslands" target="_blank">Inscripción a Campuslands</a>
-                                    <br>
-                                    ¡Cupos limitados, no te quedes fuera!
-                                </div>
-                            </div>
-                            `;
-            messageArea.scrollTop = messageArea.scrollHeight;
           }
           if (messageCount === 8) {
             messageArea.innerHTML += `
@@ -261,7 +247,7 @@ export class GeneralChat extends HTMLElement {
     } else {
       const fullMessage = {
         type: "message",
-        message:  `Mi nombre es: ${userName} y mi pregunta es: ${messageInput.value}`
+        message: `Mi nombre es: ${userName} y mi pregunta es: ${messageInput.value}`,
       };
       const jsonString = JSON.stringify(fullMessage);
       let messageArea = document.getElementById("conversation");

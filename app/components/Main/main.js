@@ -31,7 +31,7 @@ btnEnterChat.addEventListener("click", async (e) => {
   }
 
   if (!validarTelefono(userPhone)) {
-    alert("El numero de telefono debe tener 10 caracteres");
+    alert("Por favor, verifica el número de teléfono. Debe ser colombiano y contener 10 dígitos. ¡Gracias!");
     return;
   }
 
@@ -62,6 +62,7 @@ btnEnterChat.addEventListener("click", async (e) => {
       redirectToCity(userCity.value);
     } else {
       console.error("Error en el login:", await responseLogin.text());
+      alert("No fue posible iniciar sesión. Intentaremos registrarte. Si no funciona, revisa la información ingresada. 😊");
     }
   } catch (loginError) {
     console.error("Error durante el login:", loginError);
@@ -76,6 +77,7 @@ btnEnterChat.addEventListener("click", async (e) => {
       }
     } catch (registerError) {
       console.warn("Error en el registro:", registerError);
+      alert("Hubo un problema al ingresar. Por favor, verifica los datos o intenta nuevamente más tarde. 😊");
     }
   }
 });

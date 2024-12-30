@@ -465,6 +465,7 @@ img {
   align-items: center;
   padding: 10px;
   box-sizing: border-box;
+  margin-bottom: 15px;
 }
 
 .messageToSend {
@@ -519,7 +520,7 @@ button#btnSendMessage {
 }
 
 .container-img {
-  border-radius: 100px;
+  border-radius: 500px;
 }
 
 .img-EAN {
